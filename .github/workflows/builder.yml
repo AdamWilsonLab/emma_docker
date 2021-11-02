@@ -27,5 +27,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: user/app:latest
-          repository: adamwilsonlab/emma_docker
+          tags: adamwilsonlab/emma_docker:latest
