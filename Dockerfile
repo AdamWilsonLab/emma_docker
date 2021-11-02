@@ -23,7 +23,7 @@ RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.d
 RUN sudo apt-get install -f git-lfs
 RUN git lfs install
 RUN pip3 install earthengine-api
-RUN python --version
+RUN python3 --version
 RUN pip3 --version
 
 RUN install2.r --error \
