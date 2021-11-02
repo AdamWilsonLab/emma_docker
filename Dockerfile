@@ -22,5 +22,5 @@ RUN install2.r --error \
     stringr \
     knitr \
     ## from other places
-    && R -e "remotes::install_github('stan-dev/cmdstanr')"
+    && R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "cmdstanr::install_cmdstan()"
