@@ -28,3 +28,4 @@ jobs:
         with:
           push: true
           tags: user/app:latest
+          repository: adamwilsonlab/emma_docker
