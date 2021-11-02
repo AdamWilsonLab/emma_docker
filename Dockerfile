@@ -32,7 +32,7 @@ RUN install2.r --error \
     bayesplot \
     stringr \
     knitr \
-    rgee
+    rgee \
     ## from other places
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "cmdstanr::install_cmdstan()"
