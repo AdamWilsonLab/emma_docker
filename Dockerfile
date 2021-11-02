@@ -17,9 +17,9 @@ RUN apt-get update \
     libcurl4-openssl-dev \
     libssl-dev \
     libzmq3-dev
-  && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
-  && sudo apt-get install -f git-lfs
-  && git lfs install
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
+RUN sudo apt-get install -f git-lfs
+RUN git lfs install
 
 RUN install2.r --error \
     testthat \
