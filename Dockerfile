@@ -41,3 +41,5 @@ RUN install2.r --error \
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "cmdstanr::install_cmdstan()" \
     && R -e "print(cmdstanr::cmdstan_path())"
+    && R -e "print(list.files(cmdstanr::cmdstan_path()))"
+    && R -e "print(list.files("/root/"))"
