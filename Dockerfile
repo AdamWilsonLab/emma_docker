@@ -44,4 +44,4 @@ RUN install2.r --error \
 # get some useful paths
 RUN R -e "print(cmdstanr::cmdstan_path())"
 RUN R -e "print(list.files(cmdstanr::cmdstan_path()))"
-RUN R -e "print(list.files(''/root/''))"
+RUN R -e "print(list.files('/root/'))"
