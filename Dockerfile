@@ -22,6 +22,8 @@ RUN apt-get update \
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
 RUN git lfs install
+RUN pip install google-api-python-client #https://www.earthdatascience.org/tutorials/intro-google-earth-engine-python-api/
+RUN pip install pyCrypto
 RUN pip3 install earthengine-api
 RUN python3 --version
 RUN pip3 --version
@@ -35,6 +37,9 @@ RUN install2.r --error \
     stringr \
     knitr \
     rgee \
-    ## from other places
+    cptcity \
+    geojsonio \
+    googleCloudStorageR \
+    ## and libraries/commands from other places
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "cmdstanr::install_cmdstan()"
