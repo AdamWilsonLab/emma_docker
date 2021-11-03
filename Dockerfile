@@ -39,7 +39,7 @@ RUN install2.r --error \
     googleCloudStorageR \
     ## and libraries/commands from other places
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
-    && R -e "cmdstanr::install_cmdstan(dir='/cmdstan')"
+    && R -e "dir.create('/cmdstan'); cmdstanr::install_cmdstan(dir='/cmdstan')"
 
 # get some useful paths
 RUN R -e "print(cmdstanr::cmdstan_path())"
