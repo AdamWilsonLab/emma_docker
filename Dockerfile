@@ -42,9 +42,8 @@ RUN install2.r --error \
     && R -e "cmdstanr::install_cmdstan()"
 
 # get some useful paths
-RUN
 RUN R -e "print(cmdstanr::cmdstan_path())"
 RUN R -e "Sys.setenv(STANPATH = cmdstanr::cmdstan_path())"
-RUn R -e "print(Sys.getenv("STANPATH"))"
+RUN R -e "print(Sys.getenv('STANPATH'))"
 RUN R -e "print(list.files(cmdstanr::cmdstan_path()))"
 RUN R -e "print(list.files('/root/'))"
