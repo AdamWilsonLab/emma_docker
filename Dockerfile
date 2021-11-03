@@ -39,6 +39,4 @@ RUN install2.r --error \
     googleCloudStorageR \
     ## install cmdstanr - note the path below is important for loading library in container
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
-    && R -e "dir.create('/usr/cmdstan'); cmdstanr::install_cmdstan(dir='/usr/cmdstan')"
-
-ENV CMDSTAN=/usr/cmdstan
+    && R -e "dir.create('/home/rstudio', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio')"
