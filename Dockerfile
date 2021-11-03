@@ -40,4 +40,4 @@ RUN install2.r --error \
     ## and libraries/commands from other places
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "cmdstanr::install_cmdstan()" \
-    && R -e "print(cmdstan_path())"
+    && R -e "print(cmdstanr::cmdstan_path())"
