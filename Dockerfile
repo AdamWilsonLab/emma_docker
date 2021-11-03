@@ -37,7 +37,8 @@ RUN install2.r --error \
     cptcity \
     geojsonio \
     googleCloudStorageR \
-    ## and libraries/commands from other places
+    ## install cmdstanr - note the path below is important for loading library in container
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
-    && R -e "dir.create('/cmdstan'); cmdstanr::install_cmdstan(dir='/cmdstan')" \
-    && R -e "Sys.setenv(CMDSTAN = '/cmdstan')"
+    && R -e "dir.create('/usr/cmdstan'); cmdstanr::install_cmdstan(dir='/usr/cmdstan')"
+
+ENV CMDSTAN=/usr/cmdstan
