@@ -57,7 +57,7 @@ jobs:
           release_name: emma ${{ env.release_tag }}
           draft: false
           prerelease: false
-      - uses: eWaterCycle/setup-singularity@v6
+      - uses: eWaterCycle/setup-singularity@v7
         if: ${{ env.release_tag != env.latest_tag }}
         with:
           singularity-version: 3.8.5
