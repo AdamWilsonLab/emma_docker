@@ -76,10 +76,13 @@ jobs:
                 # Build the container and name by tag
                 echo "Tag is $tag."
                 container="$repo:$tag.sif"
+                container_zip="$repo:$tag.sf.zip"
                 singularity build --fakeroot container.sif "$recipe"
                 if [ "$?" == "0" ]; then
                     echo "Successfully built container $container."
                     mv container.sif "$container"
+                    zip ./container_zip.zip container.sif
+                    mv container_zip.sif "$container_zip"
                 else
                     echo "There was an issue building $container."
                 fi
@@ -91,4 +94,5 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           tag_name: ${{ env.release_tag }}
         run: |
-          hub release edit $(find . -type f -name "*.sif" -printf "-a %p ") -m "" "$tag_name"
+          #hub release edit $(find . -type f -name "*.sif" -printf "-a %p ") -m "" "$tag_name"
+          hub release edit $(find . -type f -name "*.sif.zip" -printf "-a %p ") -m "" "$tag_name"
