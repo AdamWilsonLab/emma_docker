@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: adamwilsonlab/emma_docker:latest
+From: adamwilsonlab/emma:latest
 
 %labels
   Author Adam M. Wilson
