@@ -31,6 +31,8 @@ jobs:
           tags: adamwilsonlab/emma:latest
 # Singularity section - uses the image pushed above
 # this is inefficient in that it pulls from dockerhub - maybe switch to use the local docker image?
+  singularity:
+    needs: docker
       - name: Singularity - Checkout code
         uses: actions/checkout@v2
       - name: Singularity - Get Latest Tag
