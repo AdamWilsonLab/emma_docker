@@ -1,6 +1,7 @@
 FROM rocker/geospatial
 MAINTAINER "Adam M. Wilson" adamw@buffalo.edu
 
+#RUN apt-get remove $(tasksel --task-packages desktop)
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     locales \

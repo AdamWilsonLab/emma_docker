@@ -81,8 +81,7 @@ jobs:
                 if [ "$?" == "0" ]; then
                     echo "Successfully built container $container."
                     mv container.sif "$container"
-                    zip ./container_zip.zip container.sif
-                    mv container_zip.sif "$container_zip"
+                    zip ./"$container_zip" "$container"
                 else
                     echo "There was an issue building $container."
                 fi
