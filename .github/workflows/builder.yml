@@ -23,32 +23,29 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push to DockerHub
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: adamwilsonlab/emma:latest
-
-  singularity:
-    name: Create Singularity Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
+# Singularity section - uses the image pushed above
+# this is inefficient in that it pulls from dockerhub - maybe switch to use the local docker image?
+      - name: Singularity - Checkout code
         uses: actions/checkout@v2
-      - name: Get Latest Tag
+      - name: Singularity - Get Latest Tag
         run: |
             # Get the latest tag, we won't build if it's the current
             git fetch --tags
             latest_tag=$(git tag | tail -1)
             echo "latest_tag=$latest_tag" >> $GITHUB_ENV
-      - name: Define Repository Name and Release Version
+      - name: Singularity - Define Repository Name and Release Version
         run: |
             repo=$(echo "${GITHUB_REPOSITORY/\//-}")
             release=$(cat VERSION)
             echo "reponame=$repo" >> $GITHUB_ENV
             echo "release_tag=$release" >> $GITHUB_ENV
-      - name: Create Release
+      - name: Singularity - Create Release
         id: create_release
         uses: actions/create-release@v1
         if: ${{ env.release_tag != env.latest_tag }}
@@ -63,7 +60,7 @@ jobs:
         if: ${{ env.release_tag != env.latest_tag }}
         with:
           singularity-version: 3.7.1
-      - name: Build the singularity container
+      - name: Singularity - Build the container
         if: ${{ env.release_tag != env.latest_tag }}
         run: |
             repo=$(echo "${GITHUB_REPOSITORY/\//-}")
@@ -86,7 +83,7 @@ jobs:
                     echo "There was an issue building $container."
                 fi
             done
-      - name: Upload Release Assets
+      - name: Singularity - Upload Release Assets
         if: ${{ env.release_tag != env.latest_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

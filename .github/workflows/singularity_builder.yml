@@ -6,7 +6,7 @@ on:
       - "master"
 
 jobs:
-  release:
+  singularity:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
