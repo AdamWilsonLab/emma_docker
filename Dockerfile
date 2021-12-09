@@ -10,7 +10,6 @@ RUN apt-get update \
     libcairo2-dev \
     libxt-dev \
     libcgal-dev \
-    libglu1-mesa-dev \
     ca-certificates \
     netcat\
     libsecret-1-0 \
