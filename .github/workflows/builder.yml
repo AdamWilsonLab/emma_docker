@@ -93,5 +93,5 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           tag_name: ${{ env.release_tag }}
         run: |
-          #hub release edit $(find . -type f -name "*.sif" -printf "-a %p ") -m "" "$tag_name"
-          hub release edit $(find . -type f -name "*.sif.zip" -printf "-a %p ") -m "" "$tag_name"
+          hub release edit $(find . -type f -name "*.sif" -printf "-a %p ") -m "" "$tag_name"
+          #hub release edit $(find . -type f -name "*.sif.zip" -printf "-a %p ") -m "" "$tag_name"
