@@ -76,7 +76,7 @@ jobs:
                 # Build the container and name by tag
                 echo "Tag is $tag."
                 container="$repo:$tag.sif"
-                container_zip="$repo:$tag.sf.zip"
+                container_zip="$repo:$tag.sif.zip"
                 singularity build --fakeroot container.sif "$recipe"
                 if [ "$?" == "0" ]; then
                     echo "Successfully built container $container."

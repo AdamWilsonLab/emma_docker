@@ -1,7 +1,7 @@
 FROM rocker/geospatial
 MAINTAINER "Adam M. Wilson" adamw@buffalo.edu
 
-#RUN apt-get remove $(tasksel --task-packages desktop)
+## RUN apt-get remove $(tasksel --task-packages desktop) # from https://unix.stackexchange.com/questions/56316/can-i-remove-gui-from-debian
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     locales \
