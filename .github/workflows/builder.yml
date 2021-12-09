@@ -81,7 +81,7 @@ jobs:
                 if [ "$?" == "0" ]; then
                     echo "Successfully built container $container."
                     mv container.sif "$container"
-                    zip ./"$container_zip" "$container"
+                    zip -9 ./"$container_zip" "$container"
                 else
                     echo "There was an issue building $container."
                 fi
@@ -93,5 +93,5 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           tag_name: ${{ env.release_tag }}
         run: |
-          hub release edit $(find . -type f -name "*.sif" -printf "-a %p ") -m "" "$tag_name"
-          #hub release edit $(find . -type f -name "*.sif.zip" -printf "-a %p ") -m "" "$tag_name"
+          #hub release edit $(find . -type f -name "*.sif" -printf "-a %p ") -m "" "$tag_name"
+          hub release edit $(find . -type f -name "*.sif.zip" -printf "-a %p ") -m "" "$tag_name"
