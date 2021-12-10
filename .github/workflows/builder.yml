@@ -76,7 +76,7 @@ jobs:
                 # Build the container and name by tag
                 echo "Tag is $tag."
                 container="$repo:$tag.sif"
-                container_zip="$repo:$tag.sif.zip"
+                container_zip="$repo:$tag.sif.zip" #add zip file name for compression later
                 singularity build --fakeroot container.sif "$recipe"
                 if [ "$?" == "0" ]; then
                     echo "Successfully built container $container."
@@ -93,5 +93,6 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           tag_name: ${{ env.release_tag }}
         run: |
+          # select zip option below if sif is >2GB and can't fit as github release 
           #hub release edit $(find . -type f -name "*.sif" -printf "-a %p ") -m "" "$tag_name"
           hub release edit $(find . -type f -name "*.sif.zip" -printf "-a %p ") -m "" "$tag_name"
