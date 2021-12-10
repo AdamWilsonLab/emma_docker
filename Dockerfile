@@ -44,7 +44,7 @@ RUN install2.r --error \
     && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
 
 # next do some more rgee installation / cleanup
-RUN R -e "rgee::ee_install(confirm = FALSE)"
+RUN R -e "library(rgee); ee_install(confirm = FALSE)"
 RUN R -e "rgee::ee_clean_pyenv()"
 RUN R -e "rgee::ee_install_upgrade()"
 
