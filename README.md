@@ -26,5 +26,8 @@ docker run --rm \
 ## Singularity
 
 ```
+cd /panasas/scratch/grp-adamw/singularity/adamw
+wget https://github.com/AdamWilsonLab/emma_docker/releases/download/0.0.520/AdamWilsonLab-emma_docker.latest.sif.zip
+unzip AdamWilsonLab-emma_docker.latest.sif.zip
 singularity pull docker://adamwilsonlab/emma:latest
 ```
