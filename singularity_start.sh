@@ -4,8 +4,8 @@
 export PROJECT_FOLDER="/projects/academic/adamw/"
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
-export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/singularity-geospatial-r_latest.sif"
-export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/emma_latest.sif"
+#export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/singularity-geospatial-r_latest.sif"
+export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/AdamWilsonLab-emma_docker:latest.sif"
 # to use for ssh:
 export SERVER_URL="horae.ccr.buffalo.edu"
 # folder to hold temporary singularity files - unique for each user:
@@ -54,14 +54,6 @@ singularity instance start \
       --bind $SINGULARITY_LOCALCACHEDIR/run:/run \
       --bind $SINGULARITY_LOCALCACHEDIR/rstudio:/var/lib/rstudio-server \
       $CONTAINER_PATH rserver rserver --www-port ${PORT} --auth-none=0 --auth-pam-helper-path=pam-helper
-
-      singularity instance start \
-            --fakeroot \
-            --bind $PROJECT_FOLDER:$PROJECT_FOLDER \
-            --bind $SINGULARITY_LOCALCACHEDIR/tmp:/tmp \
-            --bind $SINGULARITY_LOCALCACHEDIR/run:/run \
-            --bind $SINGULARITY_LOCALCACHEDIR/rstudio:/var/lib/rstudio-server \
-            $CONTAINER_PATH rserver --www-port ${PORT} --auth-none=0 --auth-pam-helper-path=pam-helper
 
 
 #
