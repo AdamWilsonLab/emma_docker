@@ -47,7 +47,6 @@ RUN install2.r --error \
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
 RUN R -e "rgee::ee_install(confirm = FALSE)"
-RUN R -e "rgee::ee_clean_pyenv()"
 RUN R -e "rgee::ee_install_upgrade()"
 RUN R -e "install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source')"
 
