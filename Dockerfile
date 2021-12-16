@@ -44,7 +44,7 @@ RUN install2.r --error \
     janitor \
     ## install cmdstanr - note the path below is important for loading library in container
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
-    && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')" \
+    && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
 RUN R -e "rgee::ee_install(confirm = FALSE)"
 RUN R -e "rgee::ee_clean_pyenv()"
 RUN R -e "rgee::ee_install_upgrade()"
