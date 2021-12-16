@@ -38,6 +38,8 @@ RUN install2.r --error \
     rgee \
     cptcity \
     geojsonio \
+    targets \
+    tarchetypes \
     googleCloudStorageR \
     ## install cmdstanr - note the path below is important for loading library in container
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
@@ -45,5 +47,7 @@ RUN install2.r --error \
 RUN R "rgee::ee_install(confirm = FALSE)"
 RUN R "rgee::ee_clean_pyenv()"
 RUN R "rgee::ee_install_upgrade()"
+RUN R "install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source')"
+
 
 ENTRYPOINT "rserver '$@'"
