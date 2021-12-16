@@ -25,9 +25,48 @@ docker run --rm \
 
 ## Singularity
 
+There are two methods to pull the docker image into Singularity as explained below.  
+
+### Set some useful environment variables
+
+```
+# mount project folder inside container:
+export PROJECT_FOLDER="/projects/academic/adamw/"
+# path to singularity container file.  If you want to use a different image, you'll need
+# to update this line.
+export DOCKER_PATH="docker://adamwilsonlab/emma_docker:latest"
+export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/AdamWilsonLab-emma_docker:latest.sif"
+# to use for ssh:
+export SERVER_URL="horae.ccr.buffalo.edu"
+# folder to hold temporary singularity files - unique for each user:
+export SINGULARITY_LOCALCACHEDIR="/panasas/scratch/grp-adamw/singularity/"$USER
+# name the resulting sif file
+export SIF_PATH=$SINGULARITY_LOCALCACHEDIR/"AdamWilsonLab-emma_docker-latest.sif"
+
+```
+
+
+### Use the precompiled .sif from Github
+
+A .sif file is compiled using github actions when the version number of the image is updated in this repository.  These can be found [here](https://github.com/AdamWilsonLab/emma_docker/releases).
+
+
+You will only need to run the following once (unless the image changes).
+
 ```
 cd /panasas/scratch/grp-adamw/singularity/adamw
-wget https://github.com/AdamWilsonLab/emma_docker/releases/download/0.0.520/AdamWilsonLab-emma_docker.latest.sif.zip
-unzip AdamWilsonLab-emma_docker.latest.sif.zip
-singularity pull docker://adamwilsonlab/emma:latest
+rm AdamWilsonLab-emma_docker-latest.sif
+wget -O $SIF_PATH https://github.com/AdamWilsonLab/emma_docker/releases/download/0.0.530/AdamWilsonLab-emma_docker-latest.sif.zip
+unzip $SIF_PATH
+```
+
+Then follow the [`singularity_start.sh`](singularity_start.sh) script.
+
+### Build directly from Docker image locally
+
+It's also possible to build the .sif file locally directly from the docker image, but I've found that this can take ~3 hours!  So typically it's better to just use the precompiled version above.  
+
+```
+# build the singularity image - note this takes about 3 hours on horae!
+nohup singularity build $SIF_PATH $DOCKER_PATH &
 ```

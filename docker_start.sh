@@ -5,11 +5,13 @@
 export PROJECT_FOLDER="/projects/academic/adamw/"
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
-export CONTAINER_PATH="docker::adamwilsonlab/emma:latest"
+export CONTAINER_PATH="docker://adamwilsonlab/emma_docker:latest"
 # to use for ssh:
 export SERVER_URL="horae.ccr.buffalo.edu"
 # folder to hold temporary singularity files - unique for each user:
 export SINGULARITY_LOCALCACHEDIR="/panasas/scratch/grp-adamw/singularity/"$USER
+
+export SIF_PATH=$SINGULARITY_LOCALCACHEDIR/"emma_docker.sif"
 
 # Run as particular group to use group storage
 newgrp grp-adamw
@@ -47,13 +49,15 @@ PORT is set to: $PORT
 -----------------------------------------
 "
 
+
+
 # Start the instance using variables above
 singularity instance start \
       --bind $PROJECT_FOLDER:$PROJECT_FOLDER \
       --bind $SINGULARITY_LOCALCACHEDIR/tmp:/tmp \
       --bind $SINGULARITY_LOCALCACHEDIR/run:/run \
       --bind $SINGULARITY_LOCALCACHEDIR/rstudio:/var/lib/rstudio-server \
-      $CONTAINER_PATH rserver --www-port ${PORT} --auth-none=0 --auth-pam-helper-path=pam-helper
+      $CONTAINER_PATH rserver --server-user=$USER --www-port ${PORT} --auth-none=0 --auth-pam-helper-path=pam-helper
 
 # write a file with the details (port and password)
 echo "

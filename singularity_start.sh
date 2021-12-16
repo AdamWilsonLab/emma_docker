@@ -53,15 +53,7 @@ singularity instance start \
       --bind $SINGULARITY_LOCALCACHEDIR/tmp:/tmp \
       --bind $SINGULARITY_LOCALCACHEDIR/run:/run \
       --bind $SINGULARITY_LOCALCACHEDIR/rstudio:/var/lib/rstudio-server \
-      $CONTAINER_PATH rserver rserver --www-port ${PORT} --auth-none=0 --auth-pam-helper-path=pam-helper
-
-
-#
-#singularity exec \
-#            --bind $PROJECT_FOLDER:$PROJECT_FOLDER \
-#            --bind $SINGULARITY_LOCALCACHEDIR/tmp:/tmp \
-#            --bind $SINGULARITY_LOCALCACHEDIR/run:/run \
-#            $CONTAINER_PATH rserver --www-port ${PORT} --auth-none=0 --auth-pam-helper-path=pam-helper
+      $CONTAINER_PATH rserver --server-user=$USER --www-port ${PORT} --auth-none=0 --auth-pam-helper-path=pam-helper
 
 # write a file with the details (port and password)
 echo "
