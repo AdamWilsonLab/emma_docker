@@ -43,6 +43,10 @@ RUN install2.r --error \
     tarchetypes \
     googleCloudStorageR \
     janitor \
+    gdalUtils \
+    qpdf \
+    RefManageR \
+    svMisc \
     ## install cmdstanr - note the path below is important for loading library in container
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
