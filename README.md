@@ -29,12 +29,14 @@ There are two methods to pull the docker image into Singularity as explained bel
 
 ### Set some useful environment variables
 
+If you don't do this you're likely to run out of space because the home directory doesn't have much room.
+
 ```
 # mount project folder inside container:
 export PROJECT_FOLDER="/projects/academic/adamw/"
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
-export DOCKER_PATH="docker://adamwilsonlab/emma_docker:latest"
+export DOCKER_PATH="docker://adamwilsonlab/emma:latest"
 export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/AdamWilsonLab-emma_docker:latest.sif"
 # to use for ssh:
 export SERVER_URL="horae.ccr.buffalo.edu"
@@ -68,5 +70,5 @@ It's also possible to build the .sif file locally directly from the docker image
 
 ```
 # build the singularity image - note this takes about 3 hours on horae!
-nohup singularity build $SIF_PATH $DOCKER_PATH &
+nohup singularity build --force $SIF_PATH $DOCKER_PATH &
 ```
