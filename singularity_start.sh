@@ -5,12 +5,13 @@ export PROJECT_FOLDER="/projects/academic/adamw/"
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
 #export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/singularity-geospatial-r_latest.sif"
-export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/AdamWilsonLab-emma_docker:latest.sif"
+export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/adamw/AdamWilsonLab-emma_docker-latest.sif"
+export CONTAINER_PATH="/ssd_data/singularity/$USER/AdamWilsonLab-emma_docker-latest.sif"
+
 # to use for ssh:
 export SERVER_URL="horae.ccr.buffalo.edu"
 # folder to hold temporary singularity files - unique for each user:
 export SINGULARITY_LOCALCACHEDIR="/panasas/scratch/grp-adamw/singularity/"$USER
-
 # Run as particular group to use group storage
 newgrp grp-adamw
 
@@ -19,6 +20,7 @@ newgrp grp-adamw
 # shouldn't need to edit anything below this point
 
 # define a few more folders used by singularity
+export TMPDIR=$SINGULARITY_LOCALCACHEDIR
 export SINGULARITY_CACHEDIR=$SINGULARITY_LOCALCACHEDIR
 export SINGULARITY_TMPDIR=$SINGULARITY_LOCALCACHEDIR
 
@@ -53,7 +55,10 @@ singularity instance start \
       --bind $SINGULARITY_LOCALCACHEDIR/tmp:/tmp \
       --bind $SINGULARITY_LOCALCACHEDIR/run:/run \
       --bind $SINGULARITY_LOCALCACHEDIR/rstudio:/var/lib/rstudio-server \
-      $CONTAINER_PATH rserver --server-user=$USER --www-port ${PORT} --auth-none=0 --auth-pam-helper-path=pam-helper
+      $CONTAINER_PATH rserver
+
+# Start the rserver within the container
+singularity exec instance://rserver rserver --server-user=$USER --www-port ${PORT} --auth-none=0 --auth-pam-helper-path=pam-helper &
 
 # write a file with the details (port and password)
 echo "

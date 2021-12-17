@@ -28,6 +28,7 @@ jobs:
 # Singularity section - uses the image pushed above
 # this is inefficient in that it pulls from dockerhub - maybe switch to use the local docker image?
   singularity:
+    if: ${{ FALSE }} # use this to turn on singularity compilation as a release - but has to be <2GB for github.
     name: Create Singularity .sif and save as release
     needs: docker
     runs-on: ubuntu-latest

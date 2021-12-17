@@ -41,17 +41,42 @@ export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/AdamWilsonLa
 # to use for ssh:
 export SERVER_URL="horae.ccr.buffalo.edu"
 # folder to hold temporary singularity files - unique for each user:
-export SINGULARITY_LOCALCACHEDIR="/panasas/scratch/grp-adamw/singularity/"$USER
+# export SINGULARITY_LOCALCACHEDIR="/panasas/scratch/grp-adamw/singularity/"$USER
+export SINGULARITY_LOCALCACHEDIR="/ssd_data/singularity/"$USER
+
 # name the resulting sif file
 export SIF_PATH=$SINGULARITY_LOCALCACHEDIR/"AdamWilsonLab-emma_docker-latest.sif"
 
+# define a few more folders used by singularity
+export SINGULARITY_CACHEDIR=$SINGULARITY_LOCALCACHEDIR
+export SINGULARITY_TMPDIR=$SINGULARITY_LOCALCACHEDIR
+
+# Create the folders if they don't already exist
+mkdir -p $SINGULARITY_LOCALCACHEDIR/tmp
+mkdir -p $SINGULARITY_LOCALCACHEDIR/run
+mkdir -p $SINGULARITY_LOCALCACHEDIR/rstudio
+
+
+
 ```
+
+### Build directly from Docker image locally
+
+Build the .sif directly from the docker image.
+
+```
+# build the singularity image - note this takes about 3 hours on horae!
+nohup singularity build --force $SIF_PATH $DOCKER_PATH &
+```
+
+The `nohup` simply allows it to keep running if the SSH connection is broken.
+
+Then follow the [`singularity_start.sh`](singularity_start.sh) script.
 
 
 ### Use the precompiled .sif from Github
 
-A .sif file is compiled using github actions when the version number of the image is updated in this repository.  These can be found [here](https://github.com/AdamWilsonLab/emma_docker/releases).
-
+A .sif file is compiled using github actions when the version number of the image is updated in this repository.  These can be found [here](https://github.com/AdamWilsonLab/emma_docker/releases).  However, they are only produced if turned on in the GitHub actions `builder.yml` file.
 
 You will only need to run the following once (unless the image changes).
 
@@ -63,12 +88,3 @@ unzip $SIF_PATH
 ```
 
 Then follow the [`singularity_start.sh`](singularity_start.sh) script.
-
-### Build directly from Docker image locally
-
-It's also possible to build the .sif file locally directly from the docker image, but I've found that this can take ~3 hours!  So typically it's better to just use the precompiled version above.  
-
-```
-# build the singularity image - note this takes about 3 hours on horae!
-nohup singularity build --force $SIF_PATH $DOCKER_PATH &
-```
