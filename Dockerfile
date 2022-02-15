@@ -41,6 +41,7 @@ RUN install2.r --error \
     geojsonio \
     targets \
     tarchetypes \
+    visNetwork \
     googleCloudStorageR \
     janitor \
     gdalUtils \
@@ -50,6 +51,9 @@ RUN install2.r --error \
     geojsonio \
     cubelyr \
     rdryad \
+    doParallel \
+    piggyback \
+    arrow \
     ## install cmdstanr - note the path below is important for loading library in container
     && R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
