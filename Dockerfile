@@ -58,7 +58,7 @@ RUN install2.r --error \
     ## install cmdstanr - note the path below is important for loading library in container
     #&& R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "install.packages('cmdstanr', repos = c('https://mc-stan.org/r-packages/', getOption('repos')))" \
-    && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr'); cmdstanr::set_cmdstan_path()"
+    && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
 RUN R -e "remotes::install_github('ropensci/stantargets')"
 RUN R -e "rgee::ee_install(confirm = FALSE)"
 RUN R -e "reticulate::py_install(packages = c(sprintf('earthengine-api==%s',rgee::ee_version())), envname = Sys.getenv('EARTHENGINE_ENV'))" # rgee::ee_install_upgrade() without menu
