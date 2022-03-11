@@ -58,7 +58,7 @@ RUN install2.r --error \
     ## install cmdstanr - note the path below is important for loading library in container
     #&& R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "install.packages('cmdstanr', repos = c('https://mc-stan.org/r-packages/', getOption('repos')))" \
-    && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
+    && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')" \
     && R -e "webshot::install_phantomjs()" # to make png's from html output
 RUN R -e "remotes::install_github('ropensci/stantargets')"
 RUN R -e "rgee::ee_install(confirm = FALSE)"
