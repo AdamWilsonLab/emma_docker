@@ -69,7 +69,7 @@ RUN install2.r --error \
     && R -e "install.packages('cmdstanr', repos = c('https://mc-stan.org/r-packages/', getOption('repos')))" \
     && R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')" \
     && R -e "webshot::install_phantomjs()" # to make png's from html output \
-    && R -e "devtools::install_github("JoshOBrien/gdalUtilities") \
+    && R -e "devtools::install_github("JoshOBrien/gdalUtilities")
 RUN R -e "remotes::install_github('ropensci/stantargets')"
 RUN R -e "rgee::ee_install(confirm = FALSE)"
 RUN R -e "reticulate::py_install(packages = c(sprintf('earthengine-api==%s',rgee::ee_version())), envname = Sys.getenv('EARTHENGINE_ENV'))" # rgee::ee_install_upgrade() without menu
