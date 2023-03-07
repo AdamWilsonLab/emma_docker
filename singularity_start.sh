@@ -4,57 +4,34 @@
 export PROJECT_FOLDER="/projects/academic/adamw/"
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
-#export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/singularity-geospatial-r_latest.sif"
-export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/adamw/AdamWilsonLab-emma_docker-latest.sif"
-export CONTAINER_PATH="/ssd_data/singularity/$USER/AdamWilsonLab-emma_docker-latest.sif"
+export CONTAINER_PATH=$PROJECT_FOLDER"/"$USER"/singularity/emma_docker-latest.sif"
 
 # to use for ssh:
 export SERVER_URL="horae.ccr.buffalo.edu"
+
 # folder to hold temporary singularity files - unique for each user:
-export SINGULARITY_LOCALCACHEDIR="/panasas/scratch/grp-adamw/singularity/"$USER
+export APPTAINER_CACHEDIR="/scratch/"$USER"/singularity"
+export TMPDIR=$APPTAINER_CACHEDIR
+export APPTAINER_TMPDIR=$APPTAINER_CACHEDIR
+
+
+# Create the folders if they don't already exist
+mkdir -p $APPTAINER_CACHEDIR/tmp
+mkdir -p $APPTAINER_CACHEDIR/run
+mkdir -p $APPTAINER_CACHEDIR/rstudio
+
+
 # Run as particular group to use group storage
 newgrp grp-adamw
 
 
-##################################################
-# shouldn't need to edit anything below this point
-
-# define a few more folders used by singularity
-export TMPDIR=$SINGULARITY_LOCALCACHEDIR
-export SINGULARITY_CACHEDIR=$SINGULARITY_LOCALCACHEDIR
-export SINGULARITY_TMPDIR=$SINGULARITY_LOCALCACHEDIR
-
-# Create the folders if they don't already exist
-mkdir -p $SINGULARITY_LOCALCACHEDIR/tmp
-mkdir -p $SINGULARITY_LOCALCACHEDIR/run
-mkdir -p $SINGULARITY_LOCALCACHEDIR/rstudio
-
-
-# Following https://www.rocker-project.org/use/singularity/
-# Find an open port
-export PORT=$(python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
-# generate a random password
-export PASSWORD=$(openssl rand -base64 15)
-
-
-# report on current settings
-echo "
-For debugging:
------------------------------------------
-PROJECT_FOLDER is set to: $PROJECT_FOLDER
-CONTAINER_PATH is set to: $CONTAINER_PATH
-SERVER_URL is set to: $SERVER_URL
-SINGULARITY_LOCALCACHEDIR is set to: $SINGULARITY_LOCALCACHEDIR
-PORT is set to: $PORT
------------------------------------------
-"
 
 # Start the instance using variables above
 singularity instance start \
       --bind $PROJECT_FOLDER:$PROJECT_FOLDER \
-      --bind $SINGULARITY_LOCALCACHEDIR/tmp:/tmp \
-      --bind $SINGULARITY_LOCALCACHEDIR/run:/run \
-      --bind $SINGULARITY_LOCALCACHEDIR/rstudio:/var/lib/rstudio-server \
+      --bind $APPTAINER_CACHEDIR/tmp:/tmp \
+      --bind $APPTAINER_CACHEDIR/run:/run \
+      --bind $APPTAINER_CACHEDIR/rstudio:/var/lib/rstudio-server \
       $CONTAINER_PATH rserver
 
 # Start the rserver within the container

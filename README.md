@@ -24,68 +24,66 @@ docker run --rm \
   adamwilsonlab/emma:latest
 ```
 
-## Singularity
+# HPC
+To use this container in an HPC environment like UB's CCR, you need to use singularity (a wrapper for docker that keeps things secure in a networked environment).
 
-There are two methods to pull the docker image into Singularity as explained below.  
+## Singularity on UB's HPC
 
-### Set some useful environment variables
 
-If you don't do this you're likely to run out of space because the home directory doesn't have much room.
+If you don't set these temp/cache folders you're likely to run out of space because the home directory doesn't have much room.
 
 ```
 # mount project folder inside container:
 export PROJECT_FOLDER="/projects/academic/adamw/"
+
+# define local working folder to build the SIF file (this is faster than network storage)
+export APPTAINER_CACHEDIR="/scratch/"$USER"/singularity"
+
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
 export DOCKER_PATH="docker://adamwilsonlab/emma:latest"
-export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/AdamWilsonLab-emma_docker:latest.sif"
-# to use for ssh:
-export SERVER_URL="horae.ccr.buffalo.edu"
-# folder to hold temporary singularity files - unique for each user:
-# export SINGULARITY_LOCALCACHEDIR="/panasas/scratch/grp-adamw/singularity/"$USER
-export SINGULARITY_LOCALCACHEDIR="/ssd_data/singularity/"$USER
-
-# name the resulting sif file
-export SIF_PATH=$SINGULARITY_LOCALCACHEDIR/"AdamWilsonLab-emma_docker-latest.sif"
-
-# define a few more folders used by singularity
-export SINGULARITY_CACHEDIR=$SINGULARITY_LOCALCACHEDIR
-export SINGULARITY_TMPDIR=$SINGULARITY_LOCALCACHEDIR
+export SIF_FILE="AdamWilsonLab-emma_docker-latest.sif"
+export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/singularity/"
 
 # Create the folders if they don't already exist
-mkdir -p $SINGULARITY_LOCALCACHEDIR/tmp
-mkdir -p $SINGULARITY_LOCALCACHEDIR/run
-mkdir -p $SINGULARITY_LOCALCACHEDIR/rstudio
+mkdir -p $PROJECT_FOLDER"/users/"$USER"/singularity"
+mkdir -p $APPTAINER_CACHEDIR/tmp
+mkdir -p $APPTAINER_CACHEDIR/run
+mkdir -p $APPTAINER_CACHEDIR/rstudio
+
+# go to cachedir for faster build
+cd $APPTAINER_CACHEDIR
 
 
+## Build the singularity image (.SIF) directly from Docker image locally
+### If it takes too long, you can use `nohup` first to allow it to keep running if the SSH connection is broken.
+
+singularity build --force $SIF_FILE $DOCKER_PATH &
+
+# Move it to it's permanent home
+mv $SIF_FILE $SIF_PATH
 
 ```
 
-### Build directly from Docker image locally
 
-Build the .sif directly from the docker image.
-
-```
-# build the singularity image - note this takes about 3 hours on horae!
-nohup singularity build --force $SIF_PATH $DOCKER_PATH &
-```
-
-The `nohup` simply allows it to keep running if the SSH connection is broken.
 
 Then follow the [`singularity_start.sh`](singularity_start.sh) script.
 
+## Accessing the image for interactive computation
 
-### Use the precompiled .sif from Github
-
-A .sif file is compiled using github actions when the version number of the image is updated in this repository.  These can be found [here](https://github.com/AdamWilsonLab/emma_docker/releases).  However, they are only produced if turned on in the GitHub actions `builder.yml` file.
-
-You will only need to run the following once (unless the image changes).
+1. Use [CCR's OnDemand portal](https://ondemand.ccr.buffalo.edu/pun/sys/dashboard/)
+2. SSH to vortex.ccr.buffalo.edu and then request an interactive job with something like: 
 
 ```
-cd /panasas/scratch/grp-adamw/singularity/adamw
-rm AdamWilsonLab-emma_docker-latest.sif
-wget -O $SIF_PATH https://github.com/AdamWilsonLab/emma_docker/releases/download/0.0.530/AdamWilsonLab-emma_docker-latest.sif.zip
-unzip $SIF_PATH
-```
+export PROJECT_FOLDER="/projects/academic/adamw/"
+export APPTAINER_CACHEDIR="/scratch/"$USER"/singularity"
+export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/singularity"
+export SIF_FILE="AdamWilsonLab-emma_docker-latest.sif"
 
-Then follow the [`singularity_start.sh`](singularity_start.sh) script.
+
+singularity run \
+      --bind $PROJECT_FOLDER:$PROJECT_FOLDER \
+      --bind $APPTAINER_CACHEDIR/tmp:/tmp \
+      --bind $APPTAINER_CACHEDIR/run:/run \
+      $SIF_PATH/$SIF_FILE R
+```
