@@ -68,8 +68,7 @@ mv $SIF_FILE $SIF_PATH
 
 ## Accessing the image for interactive computation
 
-1. Use [CCR's OnDemand portal](https://ondemand.ccr.buffalo.edu/pun/sys/dashboard/)
-2. SSH to vortex.ccr.buffalo.edu and then request an interactive job with something like: 
+1. SSH to vortex.ccr.buffalo.edu and then request an interactive job with something like: 
 
 ```
 salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=5G -C INTEL --time=05:20:00
@@ -90,3 +89,5 @@ singularity run \
       --bind $APPTAINER_CACHEDIR/run:/run \
       $SIF_PATH/$SIF_FILE R
 ```
+
+2. Use [CCR's OnDemand portal](https://ondemand.ccr.buffalo.edu/pun/sys/dashboard/)
