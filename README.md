@@ -32,6 +32,12 @@ To use this container in an HPC environment like UB's CCR, you need to use singu
 
 If you don't set these temp/cache folders you're likely to run out of space because the home directory doesn't have much room.
 
+First log into a compute node.  For example:
+
+```
+salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=5G -C INTEL --time=05:20:00
+```
+
 ```
 # mount project folder inside container:
 export PROJECT_FOLDER="/projects/academic/adamw/"
