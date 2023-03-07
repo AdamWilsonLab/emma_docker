@@ -66,13 +66,16 @@ mv $SIF_FILE $SIF_PATH
 ```
 
 
-
-Then follow the [`singularity_start.sh`](singularity_start.sh) script.
-
 ## Accessing the image for interactive computation
 
 1. Use [CCR's OnDemand portal](https://ondemand.ccr.buffalo.edu/pun/sys/dashboard/)
 2. SSH to vortex.ccr.buffalo.edu and then request an interactive job with something like: 
+
+```
+salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=5G -C INTEL --time=05:20:00
+```
+
+Then run the following to start using R from the container:
 
 ```
 export PROJECT_FOLDER="/projects/academic/adamw/"
