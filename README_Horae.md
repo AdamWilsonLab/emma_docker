@@ -79,7 +79,7 @@ Then follow the [`singularity_start.sh`](singularity_start.sh) script.
 
 A .sif file is compiled using github actions when the version number of the image is updated in this repository.  These can be found [here](https://github.com/AdamWilsonLab/emma_docker/releases).  However, they are only produced if turned on in the GitHub actions `builder.yml` file.
 
-You will only need to run the following once (unless the image changes).
+You will only need to run the following once (unless the image changes). 
 
 ```
 cd /panasas/scratch/grp-adamw/singularity/adamw
