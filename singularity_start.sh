@@ -4,7 +4,7 @@
 export PROJECT_FOLDER="/projects/academic/adamw/"
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
-export CONTAINER_PATH=$PROJECT_FOLDER"/user/"$USER"/singularity/emma_docker-latest.sif"
+export CONTAINER_PATH=$PROJECT_FOLDER"/users/"$USER"/singularity/emma_docker-latest.sif"
 
 # to use for ssh:
 export SERVER_URL="horae.ccr.buffalo.edu"
