@@ -39,35 +39,46 @@ salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJ
 ```
 
 ```
+# define groupname for paths
+export GROUP="adamw"
+
 # mount project folder inside container:
-export PROJECT_FOLDER="/projects/academic/adamw/"
+export PROJECT_FOLDER="/projects/academic/"$GROUP
 
 # define local working folder to build the SIF file (this is faster than network storage)
-export APPTAINER_CACHEDIR="/scratch/"$USER"/singularity"
+export APPTAINER_CACHEDIR="/scratch/"$USER"/apptainer"
+export APPTAINER_TMPDIR=$APPTAINER_CACHEDIR"/tmp"
+export APPTAINER_LOCALCACHEDIR=$APPTAINER_CACHEDIR"/tmp"
+
+# set singularity cache and tmp directories to the same as apptainer
+# needed because CCR is still using singularity and it will use these directories
+export SINGULARITY_CACHEDIR=$APPTAINER_CACHEDIR
+export SINGULARITY_TMPDIR=$APPTAINER_TMPDIR
+export SINGULARITY_LOCALCACHEDIR=$APPTAINER_LOCALCACHEDIR
 
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
 export DOCKER_PATH="docker://adamwilsonlab/emma:latest"
 export SIF_FILE="AdamWilsonLab-emma_docker-latest.sif"
-export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/singularity/"
+export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/apptainer/"
 
 # Create the folders if they don't already exist
-mkdir -p $PROJECT_FOLDER"/users/"$USER"/singularity"
-mkdir -p $APPTAINER_CACHEDIR/tmp
-mkdir -p $APPTAINER_CACHEDIR/run
-mkdir -p $APPTAINER_CACHEDIR/rstudio
+mkdir -p $PROJECT_FOLDER"/users/"$USER"/apptainer" # create project folder
+mkdir -p $APPTAINER_CACHEDIR/tmp # create apptainer cache directory
+mkdir -p $APPTAINER_CACHEDIR/run # create apptainer run directory
+mkdir -p $APPTAINER_CACHEDIR/rstudio # create apptainer RStudio directory
 
 # go to cachedir for faster build
 cd $APPTAINER_CACHEDIR
 
-
 ## Build the singularity image (.SIF) directly from Docker image locally
 ### If it takes too long, you can use `nohup` first to allow it to keep running if the SSH connection is broken.
-
 singularity build --force $SIF_FILE $DOCKER_PATH &
 
-# Move it to it's permanent home
-mv $SIF_FILE $SIF_PATH
+# Move it to its permanent home
+mkdir -p $SIF_PATH # create SIF path if it doesn't exist
+mv $SIF_FILE $SIF_PATH # move the SIF file to its permanent location
+
 
 ```
 
