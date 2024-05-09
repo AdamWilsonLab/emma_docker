@@ -29,18 +29,19 @@ To use this container in an HPC environment like UB's CCR, you need to use singu
 
 You must be on campus or in the [UB VPN to use this service](https://www.buffalo.edu/ubit/service-guides/connecting/vpn/computer.html).
 
-## Apptainer (Singularity) on UB's HPC
+## Set up Apptainer (Singularity)
 
-Use this method to run the container on the UB HPC. Before building the container, you will need to set some temp/cache folders or the build will fail because the home directory doesn't have much room.
+You only need to run this once (unless you want to update the container). Before building the container, you will need to set some temp/cache folders or the build will fail because the home directory doesn't have much room.
 
-First, log into a compute node.  For example:
+First, you can log into a compute node.  For example:
 
 ```
 ssh vortex.ccr.buffalo.edu
+
 salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=5G -C INTEL --time=05:20:00
 ```
 
-Then set the following environment variables, create a few directories, and then build the container.
+Then set the following environment variables, create a few directories, and build the container.
 
 ```
 # define groupname for paths
@@ -86,11 +87,12 @@ mv $SIF_FILE $SIF_PATH # move the SIF file to its permanent location
 
 Now the container exists at $SIF_PATH and is ready to be used.  You only need to repeat the above steps if you want to update the container. 
 
-## Access the image for interactive computation
+## Run the container for interactive computation
 
-1. SSH to vortex.ccr.buffalo.edu and then request an interactive job with something like: 
+SSH to vortex.ccr.buffalo.edu and then request an interactive job with something like: 
 
 ```
+ssh vortex.ccr.buffalo.edu
 salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=5G -C INTEL --time=05:20:00
 ```
 
