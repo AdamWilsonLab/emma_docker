@@ -27,6 +27,8 @@ docker run --rm \
 # HPC
 To use this container in an HPC environment like UB's CCR, you need to use singularity (a wrapper for docker that keeps things secure in a networked environment).
 
+You must be on campus or in the [UB VPN to use this service](https://www.buffalo.edu/ubit/service-guides/connecting/vpn/computer.html).
+
 ## Apptainer (Singularity) on UB's HPC
 
 Use this method to run the container on the UB HPC. Before building the container, you will need to set some temp/cache folders or the build will fail because the home directory doesn't have much room.
