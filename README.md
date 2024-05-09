@@ -27,16 +27,18 @@ docker run --rm \
 # HPC
 To use this container in an HPC environment like UB's CCR, you need to use singularity (a wrapper for docker that keeps things secure in a networked environment).
 
-## Singularity on UB's HPC
+## Apptainer (Singularity) on UB's HPC
 
+Use this method to run the container on the UB HPC. Before building the container, you will need to set some temp/cache folders or the build will fail because the home directory doesn't have much room.
 
-If you don't set these temp/cache folders you're likely to run out of space because the home directory doesn't have much room.
-
-First log into a compute node.  For example:
+First, log into a compute node.  For example:
 
 ```
+ssh vortex.ccr.buffalo.edu
 salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=5G -C INTEL --time=05:20:00
 ```
+
+Then set the following environment variables, create a few directories, and then build the container.
 
 ```
 # define groupname for paths
@@ -78,12 +80,11 @@ singularity build --force $SIF_FILE $DOCKER_PATH &
 # Move it to its permanent home
 mkdir -p $SIF_PATH # create SIF path if it doesn't exist
 mv $SIF_FILE $SIF_PATH # move the SIF file to its permanent location
-
-
 ```
 
+Now the container exists at $SIF_PATH and is ready to be used.  You only need to repeat the above steps if you want to update the container. 
 
-## Accessing the image for interactive computation
+## Access the image for interactive computation
 
 1. SSH to vortex.ccr.buffalo.edu and then request an interactive job with something like: 
 
@@ -95,9 +96,15 @@ Then run the following to start using R from the container:
 
 ```
 export PROJECT_FOLDER="/projects/academic/adamw/"
-export APPTAINER_CACHEDIR="/scratch/"$USER"/singularity"
-export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/singularity"
+export APPTAINER_CACHEDIR="/scratch/"$USER"/apptainer"
+export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/apptainer"
 export SIF_FILE="AdamWilsonLab-emma_docker-latest.sif"
+
+# set singularity cache and tmp directories to the same as apptainer
+# needed because CCR is still using singularity and it will use these directories
+export SINGULARITY_CACHEDIR=$APPTAINER_CACHEDIR
+export SINGULARITY_TMPDIR=$APPTAINER_TMPDIR
+export SINGULARITY_LOCALCACHEDIR=$APPTAINER_LOCALCACHEDIR
 
 
 singularity run \
@@ -107,4 +114,6 @@ singularity run \
       $SIF_PATH/$SIF_FILE R
 ```
 
-2. Use [CCR's OnDemand portal](https://ondemand.ccr.buffalo.edu/pun/sys/dashboard/)
+## Use CCR OnDemand
+You can also use CCR OnDemand
+Use [CCR's OnDemand portal](https://ondemand.ccr.buffalo.edu/pun/sys/dashboard/)
