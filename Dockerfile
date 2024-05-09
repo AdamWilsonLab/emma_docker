@@ -65,6 +65,7 @@ RUN install2.r --error \
     latticeExtra \
     hexbin \
     prioritizr \
+    plotly \
     ## install cmdstanr - note the path below is important for loading library in container
     #&& R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "install.packages('cmdstanr', repos = c('https://mc-stan.org/r-packages/', getOption('repos')))" \
