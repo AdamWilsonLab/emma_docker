@@ -56,15 +56,41 @@ RUN install2.r --error \
     bibtex \
     proto \
     slam \
-    ape \ 
+    ape \
     fasterize \
     exactextractr \
-    RcppEigen \ 
-    jpeg \ 
-    interp \ 
+    RcppEigen \
+    jpeg \
+    interp \
     latticeExtra \
     hexbin \
     prioritizr \
+    arrow \
+    tidyverse \
+    dygraphs \
+    geotargets \
+    ggridges \
+    GSODR \
+    gt \
+    leafem \
+    leaflet \
+    lubridate \
+    mapview \
+    piggyback \
+    plotly \
+    quarto \
+    raster \
+    rinat \
+    rmarkdown \
+    sf \
+    SPEI \
+    stantargets \
+    stars \
+    tarchetypes \
+    targets \
+    terra \
+    tidyterra \
+    xts \
     ## install cmdstanr - note the path below is important for loading library in container
     #&& R -e "remotes::install_github('stan-dev/cmdstanr')" \
     && R -e "install.packages('cmdstanr', repos = c('https://mc-stan.org/r-packages/', getOption('repos')))" \
