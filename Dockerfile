@@ -110,7 +110,7 @@ RUN R -e "reticulate::py_install('earthengine-api==0.1.370', envname='r-reticula
 # Check the installation of "earthengine-api" with 
 RUN R -e "reticulate::py_list_packages() 
 RUN R -e "reticulate::pyl <- py_list_packages()
-RUN R -e "reticulate::pyl[pyl$package == "earthengine-api", ]
+RUN R -e "reticulate::pyl[pyl$package == 'earthengine-api', ]
 # check python version with
 RUN R -e "reticulate::py_run_string("import sys; print(sys.version)")
 RUN R -e "devtools::install_github(repo = "bmaitner/rgee", ref = "noninteractive_auth")
