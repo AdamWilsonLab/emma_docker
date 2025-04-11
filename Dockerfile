@@ -74,6 +74,7 @@ RUN install2.r --error \
     arrow \
     tidyverse \
     dygraphs
+    
 RUN install2.r --error \ #splitting up for debugging
     geotargets \
     ggridges \
@@ -97,6 +98,7 @@ RUN install2.r --error \ #splitting up for debugging
     terra \
     tidyterra \
     xts
+    
 ## install cmdstanr - note the path below is important for loading library in container
 ## RUN R -e "remotes::install_github('stan-dev/cmdstanr')"
 RUN R -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))" 
