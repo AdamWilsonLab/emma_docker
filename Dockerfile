@@ -97,8 +97,8 @@ RUN install2.r --error \
     tidyterra \
     xts \
     ## install cmdstanr - note the path below is important for loading library in container
-RUN R -e "remotes::install_github('stan-dev/cmdstanr')"
-RUN R -e "install.packages('cmdstanr', repos = c('https://mc-stan.org/r-packages/', getOption('repos')))"
+## RUN R -e "remotes::install_github('stan-dev/cmdstanr')"
+RUN R -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))" 
 RUN R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
 RUN R -e "webshot::install_phantomjs()" # to make png's from html output
 RUN R -e "devtools::install_github("JoshOBrien/gdalUtilities")
