@@ -103,10 +103,10 @@ RUN R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_
 RUN R -e "remotes::install_github('ropensci/stantargets')"
 RUN R -e "install.packages('geotargets', repos = c('https://ropensci.r-universe.dev', 'https://cran.r-project.org'))"
 RUN R -e "install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source')"
-RUN R -e "webshot::install_phantomjs()" # to make png's from html output
+RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
 RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
 RUN R -e "reticulate::py_discover_config()" # print current status
-RUN R -e "reticulate::py_config()" \ # see the name of your conda (python) environment, in my case "r-reticulate" 
+RUN R -e "reticulate::py_config()" # see the name of your conda (python) environment, in my case "r-reticulate" 
 RUN R -e "reticulate::py_install('earthengine-api', envname='r-reticulate') #==0.1.370
 # Check the installation of "earthengine-api" with 
 RUN R -e "reticulate::py_list_packages() 
