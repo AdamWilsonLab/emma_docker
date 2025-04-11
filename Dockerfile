@@ -73,10 +73,7 @@ RUN install2.r --error \
     plotly \
     arrow \
     tidyverse \
-    dygraphs
-    
-RUN install2.r --error \ #splitting up for debugging
-    geotargets \
+    dygraphs \
     ggridges \
     GSODR \
     gt \
@@ -103,6 +100,7 @@ RUN install2.r --error \ #splitting up for debugging
 ## RUN R -e "remotes::install_github('stan-dev/cmdstanr')"
 RUN R -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))" 
 RUN R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
+RUN R -e "install.packages('geotargets', repos = c('https://ropensci.r-universe.dev', 'https://cran.r-project.org'))"
 RUN R -e "webshot::install_phantomjs()" # to make png's from html output
 RUN R -e "devtools::install_github("JoshOBrien/gdalUtilities")
 RUN R -e "remotes::install_github('ropensci/stantargets')"
