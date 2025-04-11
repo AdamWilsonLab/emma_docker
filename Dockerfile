@@ -11,6 +11,7 @@ RUN apt-get update \
     libxt-dev \
     libcgal-dev \
     ca-certificates \
+    libtbbmalloc2 \
     netcat-traditional \
     libsecret-1-0 \
     jags \
@@ -20,8 +21,7 @@ RUN apt-get update \
     python3 \
     python3-pip \
     python3-venv \
-    libcurl4-openssl-dev \
-    libtbb2
+    libcurl4-openssl-dev 
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
 RUN git lfs install
