@@ -105,16 +105,17 @@ RUN R -e "install.packages('geotargets', repos = c('https://ropensci.r-universe.
 RUN R -e "install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source')"
 RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
 RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
+RUN which python
 RUN R -e "reticulate::py_discover_config()" # print current status
 RUN R -e "reticulate::py_config()" # see the name of your conda (python) environment, in my case "r-reticulate" 
 RUN R -e "reticulate::py_install('earthengine-api', envname='r-reticulate') #==0.1.370
 # Check the installation of "earthengine-api" with 
 RUN R -e "reticulate::py_list_packages() 
 RUN R -e "reticulate::pyl <- py_list_packages()
-RUN R -e "reticulate::pyl[pyl$package == 'earthengine-api', ]
+RUN R -e "reticulate::pyl[pyl$package == 'earthengine-api', ]"
 # check python version with
-RUN R -e "reticulate::py_run_string("import sys; print(sys.version)")
-RUN R -e "devtools::install_github(repo = "bmaitner/rgee", ref = "noninteractive_auth")
+RUN R -e "reticulate::py_run_string('import sys; print(sys.version)')"
+RUN R -e "devtools::install_github(repo = 'bmaitner/rgee', ref = 'noninteractive_auth')"
 
 #RUN R -e "rgee::ee_install(confirm = FALSE)"
 #RUN R -e "reticulate::py_install(packages = c(sprintf('earthengine-api==%s',rgee::ee_version())), envname = Sys.getenv('EARTHENGINE_ENV'))" # rgee::ee_install_upgrade() without menu
