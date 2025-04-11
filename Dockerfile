@@ -70,7 +70,7 @@ RUN install2.r --error \
     latticeExtra \
     hexbin \
     prioritizr \
-    plotly
+    plotly \
     arrow \
     tidyverse \
     dygraphs \
