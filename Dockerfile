@@ -11,6 +11,7 @@ RUN apt-get update \
     libxt-dev \
     libcgal-dev \
     ca-certificates \
+    libtbbmalloc2 \
     netcat\
     libsecret-1-0 \
     jags \
