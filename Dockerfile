@@ -73,7 +73,8 @@ RUN install2.r --error \
     plotly \
     arrow \
     tidyverse \
-    dygraphs \
+    dygraphs
+RUN install2.r --error \ #splitting up for debugging
     geotargets \
     ggridges \
     GSODR \
