@@ -70,7 +70,7 @@ RUN install2.r --error \
     latticeExtra \
     hexbin \
     prioritizr \
-    plotly \
+    plotly
     arrow \
     tidyverse \
     dygraphs \
@@ -95,8 +95,8 @@ RUN install2.r --error \
     targets \
     terra \
     tidyterra \
-    xts \
-    ## install cmdstanr - note the path below is important for loading library in container
+    xts
+## install cmdstanr - note the path below is important for loading library in container
 ## RUN R -e "remotes::install_github('stan-dev/cmdstanr')"
 RUN R -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))" 
 RUN R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
