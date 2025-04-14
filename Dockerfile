@@ -42,7 +42,6 @@ RUN install2.r --error \
     rio \
     tidyverse \
     listenv \
-    parallely \
     RCurl \
     questionr \
     posterior \
