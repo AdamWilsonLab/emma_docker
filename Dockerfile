@@ -122,6 +122,8 @@ RUN R -e "reticulate::py_list_packages()"
 RUN R -e "reticulate::py_list_packages()[reticulate::py_list_packages()$package == 'earthengine-api', ]"
 # check python version with
 RUN R -e "reticulate::py_run_string('import sys; print(sys.version)')"
+RUN echo ~/.Renviron
+RUN R -e "Sys.setenv('RETICULATE_PYTHON' = '/usr/bin/python3')
 RUN R -e "rgee::ee_install_set_pyenv('/usr/bin/python3','r-reticulate', confirm = F)"
 RUN R -e "devtools::install_github(repo = 'bmaitner/rgee', ref = 'noninteractive_auth')"
 #RUN R -e "reticulate::py_install(packages = c(sprintf('earthengine-api==%s',rgee::ee_version())), envname = Sys.getenv('EARTHENGINE_ENV'))" # rgee::ee_install_upgrade() without menu
