@@ -35,6 +35,14 @@ RUN git lfs install
 
 RUN install2.r --error \
     testthat \
+    remotes \
+    globals \
+    fs \
+    writexl \
+    rio \
+    tidyverse
+    listenv \
+    parallely \
     RCurl \
     questionr \
     posterior \
@@ -72,7 +80,6 @@ RUN install2.r --error \
     prioritizr \
     plotly \
     arrow \
-    tidyverse \
     dygraphs \
     ggridges \
     GSODR \
