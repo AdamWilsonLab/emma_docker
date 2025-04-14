@@ -40,7 +40,7 @@ RUN install2.r --error \
     fs \
     writexl \
     rio \
-    tidyverse
+    tidyverse \
     listenv \
     parallely \
     RCurl \
