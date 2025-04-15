@@ -60,6 +60,7 @@ RUN install2.r --error \
     RefManageR \
     svMisc \
     geojsonio \
+    jose \
     cubelyr \
     rdryad \
     doParallel \
