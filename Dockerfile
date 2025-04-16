@@ -50,7 +50,6 @@ RUN install2.r --error \
     bayesplot \
     stringr \
     knitr \
-    rgee \
     cptcity \
     geojsonio \
     targets \
@@ -115,6 +114,8 @@ RUN R -e "install.packages('geotargets', repos = c('https://ropensci.r-universe.
 RUN R -e "install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source')"
 RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
 RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
+RUN R -e "devtools::install_github('r-spatial/rgee')"
+# Install rgee Python dependencies
 RUN R -e "library(rgee); \
           HOME <- Sys.getenv('HOME'); \ 
           reticulate::install_miniconda(); \ 
@@ -122,12 +123,4 @@ RUN R -e "library(rgee); \
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('RETICULATE_PYTHON' = sprintf('/root/.local/share/r-miniconda/bin/python3', HOME)); \   
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
-          ee_install()" # 4 Install rgee Python dependencies
-
-#RUN R -e "system('which python3'); \ 
-#          reticulate::use_python('/usr/bin/python3'); \
-#          reticulate::py_install('earthengine-api', envname='r-reticulate'); \
-#          rgee::ee_set_pyenv(python_path='/usr/bin/python3',python_env='r-reticulate', confirm = F, install=T)"
-          #; \
-          #devtools::install_github(repo = 'bmaitner/rgee', ref = 'noninteractive_auth')"
-#RUN R -e "reticulate::py_install(packages = c(sprintf('earthengine-api==%s',rgee::ee_version())), envname = Sys.getenv('EARTHENGINE_ENV'))" # rgee::ee_install_upgrade() without menu
+          ee_install()" 
