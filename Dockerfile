@@ -114,10 +114,10 @@ RUN R -e "install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climd
 RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
 RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
 RUN R -e "library(rgee); \
-          HOME <- Sys.getenv('HOME'); \ # Get the username
-          reticulate::install_miniconda(); \ ## 1. Install miniconda
-          system('curl -sSL https://sdk.cloud.google.com | bash'); | # 2. Install Google Cloud SDK
-          Sys.setenv('RETICULATE_PYTHON' = sprintf('%s/.local/share/r-miniconda/bin/python3', HOME)); \   # 3 Set global parameters
+          HOME <- Sys.getenv('HOME'); \ 
+          reticulate::install_miniconda(); \ 
+          system('curl -sSL https://sdk.cloud.google.com | bash'); \
+          Sys.setenv('RETICULATE_PYTHON' = sprintf('%s/.local/share/r-miniconda/bin/python3', HOME)); \   
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
           ee_install()" # 4 Install rgee Python dependencies
 
