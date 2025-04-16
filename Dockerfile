@@ -27,7 +27,7 @@ RUN apt-get update \
     python3-full \
     python3-venv \
     libcurl4-openssl-dev \
-    libtinfo-dev
+    libncurses6
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
 RUN git lfs install
@@ -116,7 +116,6 @@ RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
 RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
 RUN R -e "library(rgee); \
           HOME <- Sys.getenv('HOME'); \ 
-          Sys.setenv('LD_LIBRARY_PATH' = '/root/.local/share/r-miniconda/lib:$LD_LIBRARY_PATH'); \   
           reticulate::install_miniconda(); \ 
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('RETICULATE_PYTHON' = sprintf('/root/.local/share/r-miniconda/bin/python3', HOME)); \   
