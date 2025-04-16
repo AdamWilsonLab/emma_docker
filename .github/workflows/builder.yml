@@ -25,6 +25,9 @@ jobs:
         with:
           push: true
           tags: adamwilsonlab/emma:latest
+        env:
+          ACTIONS_RUNNER_DEBUG: true
+
 # Singularity section - uses the image pushed above
 # this is inefficient in that it pulls from dockerhub - maybe switch to use the local docker image?
   # singularity:
