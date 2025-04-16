@@ -116,6 +116,7 @@ RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
 RUN R -e "system('which python3'); \ 
           reticulate::use_python('/usr/bin/python3'); \
           reticulate::py_install('earthengine-api', envname='r-reticulate'); \
-          rgee::ee_set_pyenv(python_path='/usr/bin/python3',python_env='r-reticulate', confirm = F, install=T); \
-          devtools::install_github(repo = 'bmaitner/rgee', ref = 'noninteractive_auth')"
+          rgee::ee_set_pyenv(python_path='/usr/bin/python3',python_env='r-reticulate', confirm = F, install=T)
+          #; \
+          #devtools::install_github(repo = 'bmaitner/rgee', ref = 'noninteractive_auth')"
 #RUN R -e "reticulate::py_install(packages = c(sprintf('earthengine-api==%s',rgee::ee_version())), envname = Sys.getenv('EARTHENGINE_ENV'))" # rgee::ee_install_upgrade() without menu
