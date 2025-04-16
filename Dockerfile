@@ -27,7 +27,7 @@ RUN apt-get update \
     python3-full \
     python3-venv \
     libcurl4-openssl-dev \
-    ncurses-libs
+    libtinfo-dev
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
 RUN git lfs install
