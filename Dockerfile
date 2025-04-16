@@ -31,6 +31,7 @@ RUN apt-get update \
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
 RUN git lfs install
+RUN sudo find / -name "libtinfo.so.6"
 #RUN pip3 install google-api-python-client #https://www.earthdatascience.org/tutorials/intro-google-earth-engine-python-api/
 #RUN pip3 install earthengine-api
 
