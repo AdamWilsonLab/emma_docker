@@ -6,7 +6,7 @@ ENV DISPLAY=:99
 
 ## RUN apt-get remove $(tasksel --task-packages desktop) # from https://unix.stackexchange.com/questions/56316/can-i-remove-gui-from-debian
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
+  && apt-get install -y \
     locales \
     libssl-dev \
     libxml2-dev \
@@ -27,8 +27,7 @@ RUN apt-get update \
     python3-full \
     python3-venv \
     libcurl4-openssl-dev \
-    libncurses6 \ 
-    libncurses5
+    libncurses6 
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
 RUN git lfs install
