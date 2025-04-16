@@ -118,6 +118,7 @@ RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
 RUN R -e "library(rgee); \
           HOME <- Sys.getenv('HOME'); \ 
           reticulate::install_miniconda(); \ 
+          reticulate::conda_install(packages='ncurses') \
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('RETICULATE_PYTHON' = sprintf('/root/.local/share/r-miniconda/bin/python3', HOME)); \   
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
