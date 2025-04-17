@@ -7,6 +7,31 @@ ENV DISPLAY=:99
 ## RUN apt-get remove $(tasksel --task-packages desktop) # from https://unix.stackexchange.com/questions/56316/can-i-remove-gui-from-debian
 RUN apt-get update \
   && apt-get install -y \
+      libv8-dev \
+    lbzip2 \
+    libfftw3-dev \
+    libgdal-dev \
+    libgeos-dev \
+    libgsl0-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    libhdf4-alt-dev \
+    libhdf5-dev \
+    libjq-dev \    
+    libpq-dev \
+    libproj-dev \
+    libprotobuf-dev \
+    libnetcdf-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    libudunits2-dev \
+    netcdf-bin \
+    postgis \
+    protobuf-compiler \
+    sqlite3 \
+    tk-dev \
+    unixodbc-dev \
+    
     locales \
     libssl-dev \
     libxml2-dev \
@@ -26,8 +51,21 @@ RUN apt-get update \
     python3-pip \
     python3-full \
     python3-venv \
-    libcurl4-openssl-dev \
-    libncurses6 
+    libcurl4-openssl-dev
+
+# https://github.com/csaybar/rgee-docker/blob/master/Dockerfile    
+RUN apt-get install -y \
+		python3-pip \
+		python3-dev \
+	&& pip3 install virtualenv
+
+RUN pip3 install coveralls \
+    oauth2client \
+    numpy \
+    requests_toolbelt \
+    earthengine-api \
+    pyasn1
+    
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
 RUN git lfs install
@@ -102,19 +140,19 @@ RUN install2.r --error \
     targets \
     terra \
     tidyterra \
-    xts
+    xts \
+    rgee
     
 ## install cmdstanr - note the path below is important for loading library in container
-## RUN R -e "remotes::install_github('stan-dev/cmdstanr')"
-RUN R -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))" 
-RUN R -e "remotes::install_github('futureverse/parallelly', ref='master')"
-RUN R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
-RUN R -e "remotes::install_github('ropensci/stantargets')"
-RUN R -e "install.packages('geotargets', repos = c('https://ropensci.r-universe.dev', 'https://cran.r-project.org'))"
-RUN R -e "install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source')"
-RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
-RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
-RUN R -e "devtools::install_github('r-spatial/rgee')"
+###RUN R -e "remotes::install_github('stan-dev/cmdstanr')"
+##RUN R -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))" 
+#RUN R -e "remotes::install_github('futureverse/parallelly', ref='master')"
+#RUN R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
+#RUN R -e "remotes::install_github('ropensci/stantargets')"
+#RUN R -e "install.packages('geotargets', repos = c('https://ropensci.r-universe.dev', 'https://cran.r-project.org'))"
+#RUN R -e "install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source')"
+#RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
+#RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
 # Install rgee Python dependencies
 RUN R -e "library(rgee); \
           HOME <- Sys.getenv('HOME'); \ 
