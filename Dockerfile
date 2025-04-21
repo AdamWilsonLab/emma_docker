@@ -51,14 +51,13 @@ RUN apt-get update \
     python3-pip \
     python3-full \
     python3-venv \
+    python3-oauth2client \
+    python3-coveralls \
+    python3-numpy \
+    python3-requests_toolbelt \
+    python3-earthengine-api \
+    python3-pyasn1 \
     libcurl4-openssl-dev
-
-RUN pip3 install coveralls \
-    oauth2client \
-    numpy \
-    requests_toolbelt \
-    earthengine-api \
-    pyasn1
     
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
