@@ -147,10 +147,12 @@ RUN install2.r --error \
 #RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
 #RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
 # Install rgee Python dependencies
-RUN R -e "install.packages('rgee'); \
+RUN R -e "reticulate::install_miniconda(); \ 
+          reticulate::py_install('fermipy'); \
+          reticulate::py_install('numpy'); \
+          install.packages('rgee'); \
           library(rgee); \
           HOME <- Sys.getenv('HOME'); \ 
-          reticulate::install_miniconda(); \ 
           system('find . -name \'libtinfo*\''); \
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('RETICULATE_PYTHON' = sprintf('/root/.local/share/r-miniconda/bin/python3', HOME)); \   
