@@ -30,34 +30,34 @@ RUN apt-get update \
     protobuf-compiler \
     sqlite3 \
     tk-dev \
-    unixodbc-dev \
+    unixodbc-dev 
     
-    locales \
-    libssl-dev \
-    libxml2-dev \
-    libcairo2-dev \
-    libxt-dev \
-    libcgal-dev \
-    ca-certificates \
-    libtbbmalloc2 \
-    netcat-traditional \
-    libsecret-1-0 \
-    jags \
-    libcurl4-openssl-dev \
-    libssl-dev \
-    libzmq3-dev \
-    python3 \
-    python3-dev \
-    python3-pip \
-    python3-full \
-    python3-venv \
-    python3-oauth2client \
-    python3-coveralls \
-    python3-numpy \
-    python3-requests_toolbelt \
-    python3-earthengine-api \
-    python3-pyasn1 \
-    libcurl4-openssl-dev
+#    locales \
+#    libssl-dev \
+#    libxml2-dev \
+#    libcairo2-dev \
+#    libxt-dev \
+#    libcgal-dev \
+#    ca-certificates \
+#    libtbbmalloc2 \
+#    netcat-traditional \
+#    libsecret-1-0 \
+#    jags \
+#    libcurl4-openssl-dev \
+#    libssl-dev \
+#    libzmq3-dev \
+#    python3 \
+#    python3-dev \
+#    python3-pip \
+#    python3-full \
+#    python3-venv \
+#    python3-oauth2client \
+#    python3-coveralls \
+#    python3-numpy \
+#    python3-requests_toolbelt \
+#    python3-earthengine-api \
+#    python3-pyasn1 \
+#    libcurl4-openssl-dev
     
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
