@@ -150,11 +150,9 @@ RUN install2.r --error \
 RUN R -e "reticulate::install_miniconda(); \ 
           reticulate::py_install('fermipy'); \
           reticulate::py_install('numpy'); \
-          reticulate::py_install('ee'); \
           install.packages('rgee'); \
           library(rgee); \
           HOME <- Sys.getenv('HOME'); \ 
-          system('find . -name \'libtinfo*\''); \
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
           ee_install()" 
