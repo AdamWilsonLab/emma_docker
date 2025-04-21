@@ -150,6 +150,7 @@ RUN install2.r --error \
 RUN R -e "reticulate::install_miniconda(); \ 
           reticulate::py_install('fermipy'); \
           reticulate::py_install('numpy'); \
+          reticulare::py_install('ee'); \
           install.packages('rgee'); \
           library(rgee); \
           HOME <- Sys.getenv('HOME'); \ 
