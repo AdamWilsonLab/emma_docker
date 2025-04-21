@@ -147,7 +147,8 @@ RUN install2.r --error \
 #RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
 #RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
 # Install rgee Python dependencies
-RUN R -e "library(rgee); \
+RUN R -e "install.packages('rgee'); \
+          library(rgee); \
           HOME <- Sys.getenv('HOME'); \ 
           reticulate::install_miniconda(); \ 
           system('find . -name \'libtinfo*\''); \
