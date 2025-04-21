@@ -53,12 +53,6 @@ RUN apt-get update \
     python3-venv \
     libcurl4-openssl-dev
 
-# https://github.com/csaybar/rgee-docker/blob/master/Dockerfile    
-RUN apt-get install -y \
-		python3-pip \
-		python3-dev \
-	&& pip3 install virtualenv
-
 RUN pip3 install coveralls \
     oauth2client \
     numpy \
