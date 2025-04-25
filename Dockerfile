@@ -62,9 +62,6 @@ RUN apt-get update \
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN sudo apt-get install -f git-lfs
 RUN git lfs install
-RUN sudo find / -name "libtinfo.so.6"
-#RUN pip3 install google-api-python-client #https://www.earthdatascience.org/tutorials/intro-google-earth-engine-python-api/
-#RUN pip3 install earthengine-api
 
 RUN install2.r --error \
     testthat \
@@ -136,15 +133,16 @@ RUN install2.r --error \
     xts \
     rgee
     
-## install cmdstanr - note the path below is important for loading library in container
-RUN R -e "remotes::install_github('futureverse/parallelly', ref='master')"
-RUN R -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))" 
-RUN R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
-RUN R -e "remotes::install_github('ropensci/stantargets')"
-RUN R -e "install.packages('geotargets', repos = c('https://ropensci.r-universe.dev', 'https://cran.r-project.org'))"
-RUN R -e "install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source')"
-RUN R -e "webshot::install_phantomjs()" # to make pngs from html output
-RUN R -e "devtools::install_github('JoshOBrien/gdalUtilities')"
+## install additional libraries from custom repos including cmdstanr - note the path below is important for loading library in container
+RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
+          install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos'))) ; \
+          dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr'); \
+          remotes::install_github('ropensci/stantargets'); \
+          install.packages('geotargets', repos = c('https://ropensci.r-universe.dev', 'https://cran.r-project.org')); \
+          install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source'); \
+          webshot::install_phantomjs(); \
+          devtools::install_github('JoshOBrien/gdalUtilities')"
+
 # Install rgee Python dependencies
 RUN R -e "reticulate::install_miniconda(); \ 
           reticulate::py_install('fermipy'); \
@@ -156,5 +154,3 @@ RUN R -e "reticulate::install_miniconda(); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
           Sys.setenv('RETICULATE_PYTHON' = '/root/.cache/R/reticulate/uv/cache/archive-v0/Y7jTADy4G0HUy0yaF6c0m/bin/python3'); \   
           rgee::ee_install_set_pyenv(py_path = '/root/.cache/R/reticulate/uv/cache/archive-v0/Y7jTADy4G0HUy0yaF6c0m/bin/python3')"
-#          rgee::ee_install()" 
-#           
