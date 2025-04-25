@@ -151,7 +151,7 @@ RUN R -e "reticulate::install_miniconda(); \
           reticulate::py_install('fermipy'); \
           reticulate::py_install('numpy'); \
           remotes::install_github('r-spatial/rgee'); \
-          ee_clean_pyenv(); \
+          rgee::ee_clean_pyenv(); \
           HOME <- Sys.getenv('HOME'); \ 
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
