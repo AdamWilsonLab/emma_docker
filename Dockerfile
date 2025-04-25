@@ -137,8 +137,8 @@ RUN install2.r --error \
     rgee
     
 ## install cmdstanr - note the path below is important for loading library in container
-##RUN R -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))" 
 RUN R -e "remotes::install_github('futureverse/parallelly', ref='master')"
+RUN R -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))" 
 RUN R -e "dir.create('/home/rstudio/.cmdstanr', recursive=T); cmdstanr::install_cmdstan(dir='/home/rstudio/.cmdstanr')"
 RUN R -e "remotes::install_github('ropensci/stantargets')"
 RUN R -e "install.packages('geotargets', repos = c('https://ropensci.r-universe.dev', 'https://cran.r-project.org'))"
