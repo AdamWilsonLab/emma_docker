@@ -154,4 +154,4 @@ RUN R -e "reticulate::install_miniconda(); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
           Sys.setenv('RETICULATE_PYTHON' = '/root/.cache/R/reticulate/uv/cache/archive-v0/Y7jTADy4G0HUy0yaF6c0m/bin/python3'); \   
           rgee::ee_install_set_pyenv(py_path = '/root/.cache/R/reticulate/uv/cache/archive-v0/Y7jTADy4G0HUy0yaF6c0m/bin/python3'); \
-          ee_install(confirm = F)"
+          rgee::ee_install(confirm = F)"
