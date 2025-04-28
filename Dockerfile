@@ -141,7 +141,9 @@ RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
           install.packages('geotargets', repos = c('https://ropensci.r-universe.dev', 'https://cran.r-project.org')); \
           install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source'); \
           webshot::install_phantomjs(); \
-          devtools::install_github('JoshOBrien/gdalUtilities')"
+          devtools::install_github('JoshOBrien/gdalUtilities')
+          remotes::install_github('r-spatial/rgee'); \
+          rgee::ee_install()"
 
 # Install rgee Python dependencies
 RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/.cache/R/reticulate/'); \
@@ -155,4 +157,4 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/.cache/R/reticulate/')
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
           rgee::ee_install_set_pyenv(py_path = '/root/.cache/R/reticulate/bin/python3')"
-RUN R -e  "rgee::ee_install(py_path = '/root/.cache/R/reticulate/bin/python3',confirm = F)"
+RUN R -e  "rgee::ee_install(py_env = '/root/.cache/R/reticulate/bin/python3',confirm = F)"
