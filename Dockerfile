@@ -144,12 +144,13 @@ RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
           devtools::install_github('JoshOBrien/gdalUtilities')"
 
 # Install rgee Python dependencies
-RUN R -e " reticulate::install_miniconda(); \ 
+RUN R -e "reticulate::install_miniconda(); \ 
           reticulate::py_install('fermipy'); \
           reticulate::py_install('numpy'); \
           reticulate::py_install('earthengine-api', pip = TRUE); \
           remotes::install_github('r-spatial/rgee'); \
           rgee::ee_clean_pyenv(); \
+          reticulate::py_config(); \
           HOME <- Sys.getenv('HOME'); \ 
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
