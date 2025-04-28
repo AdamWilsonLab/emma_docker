@@ -143,7 +143,7 @@ RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
           webshot::install_phantomjs(); \
           devtools::install_github('JoshOBrien/gdalUtilities'); \
           remotes::install_github('r-spatial/rgee'); \
-          rgee::ee_install()"
+          rgee::ee_install(python_version = NULL)"
 
 # Install rgee Python dependencies
 RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/.cache/R/reticulate/'); \
