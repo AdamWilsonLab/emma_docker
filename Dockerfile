@@ -141,7 +141,7 @@ RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
           install.packages('geotargets', repos = c('https://ropensci.r-universe.dev', 'https://cran.r-project.org')); \
           install.packages('https://gitlab.rrz.uni-hamburg.de/helgejentsch/climdatdownloadr/-/archive/master/climdatdownloadr-master.tar.gz', repos = NULL, type = 'source'); \
           webshot::install_phantomjs(); \
-          devtools::install_github('JoshOBrien/gdalUtilities')
+          devtools::install_github('JoshOBrien/gdalUtilities'); /
           remotes::install_github('r-spatial/rgee'); \
           rgee::ee_install()"
 
