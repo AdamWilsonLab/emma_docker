@@ -146,9 +146,11 @@ RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
 # Install rgee Python dependencies
 RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           reticulate::install_miniconda(path=Sys.getenv('RETICULATE_MINICONDA_PATH')); \ 
+          print(reticulate::py_config()); \
           reticulate::py_install('fermipy',method='conda',envname='reticulate'); \
           reticulate::py_install('numpy',method='conda',envname='reticulate'); \
           reticulate::py_install('earthengine-api', pip = TRUE, method='conda', envname='reticulate'); \
+          print(reticulate::py_config()); \
           remotes::install_github('r-spatial/rgee'); \
           print(reticulate::py_config()); \
           rgee::ee_install_set_pyenv(py_path = '/root/miniconda3/bin',py_env = 'reticulate'); \
