@@ -145,7 +145,6 @@ RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
 
 # Install rgee Python dependencies
 RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
-          Sys.setenv('RETICULATE_PYTHON' = '/root/miniconda3/bin/python'); \
           reticulate::install_miniconda(path=Sys.getenv('RETICULATE_MINICONDA_PATH')); \ 
           reticulate::py_install('fermipy',method='conda',envname='reticulate'); \
           reticulate::py_install('numpy',method='conda',envname='reticulate'); \
@@ -159,7 +158,7 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
           rgee::ee_check()"
 # rgee::ee_install(py_env = 'rgee', confirm = FALSE); \
-# 
+# Sys.setenv('RETICULATE_PYTHON' = '/root/miniconda3/bin/python'); \
 #          Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3/bin/python'); \
 #          Sys.setenv('RETICULATE_PYTHON' = '/root/miniconda3/bin/python'); \   
 #         rgee::ee_install_set_pyenv(py_path = '/root/miniconda3/bin/python'); \
