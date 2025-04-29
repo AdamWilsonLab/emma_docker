@@ -149,7 +149,6 @@ RUN R -e "reticulate::install_miniconda(); \
           reticulate::py_install('numpy'); \
           reticulate::py_install('earthengine-api', pip = TRUE); \
           remotes::install_github('r-spatial/rgee'); \
-          rgee::ee_clean_pyenv(); \
           reticulate::py_config(); \
           HOME <- Sys.getenv('HOME'); \ 
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
@@ -160,4 +159,5 @@ RUN R -e "reticulate::install_miniconda(); \
 #          Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3/bin/python'); \
 #          Sys.setenv('RETICULATE_PYTHON' = '/root/miniconda3/bin/python'); \   
 #         rgee::ee_install_set_pyenv(py_path = '/root/miniconda3/bin/python'); \
+#rgee::ee_clean_pyenv(); \
 
