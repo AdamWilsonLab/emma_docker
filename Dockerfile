@@ -153,7 +153,7 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           print(reticulate::py_config()); \
           remotes::install_github('r-spatial/rgee'); \
           print(reticulate::py_config()); \
-          rgee::ee_install_set_pyenv(py_path = '/root/miniconda3',py_env = 'r-reticulate'); \
+          rgee::ee_install_set_pyenv(py_path = '/root/miniconda3/envs/r-reticulate/bin/python',py_env = 'r-reticulate'); \
           print(reticulate::py_config()); \
           HOME <- Sys.getenv('HOME'); \ 
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
