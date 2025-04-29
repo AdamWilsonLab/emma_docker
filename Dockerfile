@@ -144,16 +144,17 @@ RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
           devtools::install_github('JoshOBrien/gdalUtilities')"
 
 # Install rgee Python dependencies
-RUN R -e "reticulate::install_miniconda(); \ 
-          reticulate::py_install('fermipy'); \
-          reticulate::py_install('numpy'); \
-          reticulate::py_install('earthengine-api', pip = TRUE); \
+RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3/bin/python'); \
+          reticulate::install_miniconda(path=Sys.getenv('RETICULATE_MINICONDA_PATH'); \ 
+          reticulate::py_install('fermipy',method='conda',envname='reticulate'); \
+          reticulate::py_install('numpy',method='conda',envname='reticulate'); \
+          reticulate::py_install('earthengine-api', pip = TRUE, method='conda'); \
           remotes::install_github('r-spatial/rgee'); \
           reticulate::py_config(); \
           HOME <- Sys.getenv('HOME'); \ 
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
-          rgee::ee_install_upgrade(earthengine_env = '/root/.local/share/r-miniconda/envs/r-reticulate/bin/python')"
+          rgee::ee_install_upgrade(earthengine_env = 'reticulate')"
 # rgee::ee_install(py_env = 'rgee', confirm = FALSE); \
 # Sys.setenv(RETICULATE_PYTHON = '/root/miniconda3/bin/python'); \
 #          Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3/bin/python'); \
