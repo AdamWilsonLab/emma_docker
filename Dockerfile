@@ -31,8 +31,11 @@ RUN apt-get update \
     sqlite3 \
     tk-dev \
     unixodbc-dev \
-    libssl-dev
-    
+    libssl-dev \
+    openssl \
+    && openssl version
+
+   
 #    locales \
 #    libssl-dev \
 #    libxml2-dev \
@@ -151,7 +154,7 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
           print(reticulate::py_config()); \
           print(reticulate::py_discover_config()); \
-          reticulate::conda_install(c('fermipy','numpy','earthengine-api'),envname='r-reticulate'); \
+          reticulate::conda_install(c('fermipy','numpy','earthengine-api','openssl'),envname='r-reticulate'); \
           print(reticulate::py_discover_config()); \
           reticulate::conda_list(); \
           print(reticulate::py_config()); \
