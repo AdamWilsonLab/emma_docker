@@ -150,7 +150,8 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           reticulate::py_install('fermipy',method='conda',envname='r-reticulate'); \
           reticulate::py_install('numpy',method='conda',envname='r-reticulate'); \
           reticulate::py_install('earthengine-api', pip = TRUE, method='conda', envname='r-reticulate'); \
-          reticulate::use_virtualenv('/root/miniconda3/envs/r-reticulate'); \
+          reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
+          reticulate::conda_list(); \
           print(reticulate::py_config()); \
           remotes::install_github('r-spatial/rgee'); \
           print(reticulate::py_config()); \
