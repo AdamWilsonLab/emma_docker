@@ -34,15 +34,6 @@ RUN apt-get update \
     libssl-dev \
     openssl \
     && openssl version
-
-# Install OpenSSL 3.3.0 or higher
-RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:ci-train-ppa-service/stable && \
-    apt-get update && \
-    apt-get install -y openssl && \
-    openssl version
-
   
 #    locales \
 #    libssl-dev \
