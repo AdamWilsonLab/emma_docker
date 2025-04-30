@@ -35,7 +35,7 @@ If you don't set these temp/cache folders you're likely to run out of space beca
 First log into a compute node.  For example:
 
 ```
-salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=5G -C INTEL --time=05:20:00
+salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=20G -C INTEL --time=05:20:00
 ```
 
 ```
@@ -43,7 +43,7 @@ salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJ
 export PROJECT_FOLDER="/projects/academic/adamw/"
 
 # define local working folder to build the SIF file (this is faster than network storage)
-export APPTAINER_CACHEDIR="/scratch/"$USER"/singularity"
+export APPTAINER_CACHEDIR="/vscratch/grp-adamw/"$USER"/singularity"
 
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
@@ -64,7 +64,7 @@ cd $APPTAINER_CACHEDIR
 ## Build the singularity image (.SIF) directly from Docker image locally
 ### If it takes too long, you can use `nohup` first to allow it to keep running if the SSH connection is broken.
 
-singularity build --force $SIF_FILE $DOCKER_PATH &
+singularity build --force $SIF_FILE $DOCKER_PATH & nohup
 
 # Move it to it's permanent home
 mv $SIF_FILE $SIF_PATH
@@ -77,14 +77,14 @@ mv $SIF_FILE $SIF_PATH
 1. SSH to vortex.ccr.buffalo.edu and then request an interactive job with something like: 
 
 ```
-salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=5G -C INTEL --time=05:20:00
+salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJob" --nodes=1 --ntasks=2 --mem=20G -C INTEL --time=05:20:00
 ```
 
 Then run the following to start using R from the container:
 
 ```
 export PROJECT_FOLDER="/projects/academic/adamw/"
-export APPTAINER_CACHEDIR="/scratch/"$USER"/singularity"
+export APPTAINER_CACHEDIR="/vscratch/grp-adamw/"$USER"/singularity"
 export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/singularity"
 export SIF_FILE="AdamWilsonLab-emma_docker-latest.sif"
 

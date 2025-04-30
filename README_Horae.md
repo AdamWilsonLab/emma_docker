@@ -38,7 +38,7 @@ export PROJECT_FOLDER="/projects/academic/adamw/"
 # path to singularity container file.  If you want to use a different image, you'll need
 # to update this line.
 export DOCKER_PATH="docker://adamwilsonlab/emma:latest"
-export CONTAINER_PATH="/panasas/scratch/grp-adamw/singularity/$USER/AdamWilsonLab-emma_docker:latest.sif"
+export CONTAINER_PATH="/vscratch/grp-adamw/singularity/$USER/AdamWilsonLab-emma_docker:latest.sif"
 # to use for ssh:
 export SERVER_URL="horae.ccr.buffalo.edu"
 # folder to hold temporary singularity files - unique for each user:
@@ -82,7 +82,8 @@ A .sif file is compiled using github actions when the version number of the imag
 You will only need to run the following once (unless the image changes).
 
 ```
-cd /panasas/scratch/grp-adamw/singularity/adamw
+mkdir -p /vscratch/grp-adamw/singularity/adamw
+cd /vscratch/grp-adamw/singularity/adamw
 rm AdamWilsonLab-emma_docker-latest.sif
 wget -O $SIF_PATH https://github.com/AdamWilsonLab/emma_docker/releases/download/0.0.530/AdamWilsonLab-emma_docker-latest.sif.zip
 unzip $SIF_PATH
