@@ -30,7 +30,8 @@ RUN apt-get update \
     protobuf-compiler \
     sqlite3 \
     tk-dev \
-    unixodbc-dev 
+    unixodbc-dev \
+    libssl-dev
     
 #    locales \
 #    libssl-dev \
