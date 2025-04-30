@@ -32,7 +32,7 @@ RUN apt-get update \
     tk-dev \
     unixodbc-dev \
     libssl-dev \
-    openssl \
+    openssl-3.3.0 \
     && openssl version
 
    
