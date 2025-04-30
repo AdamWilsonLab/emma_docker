@@ -35,7 +35,15 @@ RUN apt-get update \
     openssl \
     && openssl version
 
-   
+# Install OpenSSL 3.3.0 or higher
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository -y ppa:ci-train-ppa-service/stable && \
+    apt-get update && \
+    apt-get install -y openssl && \
+    openssl version
+
+  
 #    locales \
 #    libssl-dev \
 #    libxml2-dev \
@@ -154,7 +162,7 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
           print(reticulate::py_config()); \
           print(reticulate::py_discover_config()); \
-          reticulate::conda_install(c('fermipy','numpy','earthengine-api','openssl=3.3.3'),envname='r-reticulate'); \
+          reticulate::conda_install(c('fermipy','numpy','earthengine-api','openssl>=3.3.0'),envname='r-reticulate'); \
           print(reticulate::py_discover_config()); \
           reticulate::conda_list(); \
           print(reticulate::py_config()); \
@@ -166,6 +174,7 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
           rgee::ee_check()"
+
 #           reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
 #           reticulate::conda_install('numpy',envname='/root/miniconda3/envs/r-reticulate'); \
 #          reticulate::conda_install('earthengine-api', envname='/root/miniconda3/envs/r-reticulate'); \
