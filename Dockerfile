@@ -149,9 +149,7 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           print(reticulate::py_config()); \
           print(reticulate::py_discover_config()); \
           reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
-          reticulate::conda_install('fermipy',envname='/root/miniconda3/envs/r-reticulate'); \
-          reticulate::conda_install('numpy',envname='/root/miniconda3/envs/r-reticulate'); \
-          reticulate::conda_install('earthengine-api', envname='/root/miniconda3/envs/r-reticulate'); \
+          reticulate::conda_install(c('fermipy','numpy','earthengine-api'),envname='/root/miniconda3/envs/r-reticulate'); \
           print(reticulate::py_discover_config()); \
           reticulate::conda_list(); \
           print(reticulate::py_config()); \
@@ -163,6 +161,8 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
           rgee::ee_check()"
+#           reticulate::conda_install('numpy',envname='/root/miniconda3/envs/r-reticulate'); \
+#          reticulate::conda_install('earthengine-api', envname='/root/miniconda3/envs/r-reticulate'); \
 # rgee::ee_install(py_env = 'rgee', confirm = FALSE); \
 # Sys.setenv('RETICULATE_PYTHON' = '/root/miniconda3/bin/python'); \
 #          Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3/bin/python'); \
