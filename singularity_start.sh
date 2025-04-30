@@ -1,30 +1,35 @@
 #! /usr/bin/env bash
 
-# mount project folder inside container:
+# project specific vars
+export SIF_FILE="AdamWilsonLab-emma_docker-latest.sif"
 export PROJECT_FOLDER="/projects/academic/adamw/"
-# path to singularity container file.  If you want to use a different image, you'll need
-# to update this line.
-export CONTAINER_PATH=$PROJECT_FOLDER"/"$USER"/singularity/emma_docker-latest.sif"
 
-# to use for ssh:
-export SERVER_URL="horae.ccr.buffalo.edu"
+# Run as particular group to use group storage
+newgrp grp-adamw
 
-# folder to hold temporary singularity files - unique for each user:
-export APPTAINER_CACHEDIR="/scratch/"$USER"/singularity"
+# apptainer directories
+export APPTAINER_CACHEDIR="/scratch/"$USER"/apptainer"
+export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/apptainer"
 export TMPDIR=$APPTAINER_CACHEDIR
 export APPTAINER_TMPDIR=$APPTAINER_CACHEDIR
 
+# set singularity cache and tmp directories to the same as apptainer
+# needed because CCR is still using singularity and it will use these directories
+export SINGULARITY_CACHEDIR=$APPTAINER_CACHEDIR
+export SINGULARITY_TMPDIR=$APPTAINER_TMPDIR
+export SINGULARITY_LOCALCACHEDIR=$APPTAINER_LOCALCACHEDIR
+
+# path to singularity container file.  If you want to use a different image, you'll need
+# to update this line.
+export CONTAINER_PATH=$SIF_PATH/$SIF_FILE 
+
+# to use for ssh:
+export SERVER_URL="horae.ccr.buffalo.edu"
 
 # Create the folders if they don't already exist
 mkdir -p $APPTAINER_CACHEDIR/tmp
 mkdir -p $APPTAINER_CACHEDIR/run
 mkdir -p $APPTAINER_CACHEDIR/rstudio
-
-
-# Run as particular group to use group storage
-newgrp grp-adamw
-
-
 
 # Start the instance using variables above
 singularity instance start \
