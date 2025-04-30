@@ -149,9 +149,9 @@ RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
           print(reticulate::py_config()); \
           print(reticulate::py_discover_config()); \
           reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
-          reticulate::conda_install('fermipy',envname='r-reticulate'); \
-          reticulate::conda_install('numpy',envname='r-reticulate'); \
-          reticulate::conda_install('earthengine-api', envname='r-reticulate'); \
+          reticulate::conda_install('fermipy',envname='/root/miniconda3/envs/r-reticulate'); \
+          reticulate::conda_install('numpy',envname='/root/miniconda3/envs/r-reticulate'); \
+          reticulate::conda_install('earthengine-api', envname='/root/miniconda3/envs/r-reticulate'); \
           print(reticulate::py_discover_config()); \
           reticulate::conda_list(); \
           print(reticulate::py_config()); \
