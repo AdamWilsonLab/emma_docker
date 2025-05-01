@@ -135,7 +135,7 @@ RUN install2.r --error \
     targets \
     terra \
     tidyterra \
-    xts \
+    xts
 
 
 ## install additional libraries from custom repos including cmdstanr - note the path below is important for loading library in container
