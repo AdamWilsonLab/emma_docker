@@ -1,4 +1,4 @@
-FROM rocker/geospatial:latest
+FROM rocker/geospatial
 MAINTAINER "Adam M. Wilson" adamw@buffalo.edu
 
 # set display port to avoid crash
@@ -7,7 +7,7 @@ ENV DISPLAY=:99
 ## RUN apt-get remove $(tasksel --task-packages desktop) # from https://unix.stackexchange.com/questions/56316/can-i-remove-gui-from-debian
 RUN apt-get update \
   && apt-get install -y \
-      libv8-dev \
+    libv8-dev \
     lbzip2 \
     libfftw3-dev \
     libgdal-dev \
@@ -29,42 +29,31 @@ RUN apt-get update \
     postgis \
     protobuf-compiler \
     sqlite3 \
-    tk-dev \
-    unixodbc-dev \
-    libssl-dev \
-    openssl \
-    && openssl version
+    tk-dev 
 
-#    locales \
-#    libssl-dev \
-#    libxml2-dev \
-#    libcairo2-dev \
-#    libxt-dev \
-#    libcgal-dev \
-#    ca-certificates \
-#    libtbbmalloc2 \
-#    netcat-traditional \
-#    libsecret-1-0 \
-#    jags \
-#    libcurl4-openssl-dev \
-#    libssl-dev \
-#    libzmq3-dev \
-#    python3 \
-#    python3-dev \
-#    python3-pip \
-#    python3-full \
-#    python3-venv \
-#    python3-oauth2client \
-#    python3-coveralls \
-#    python3-numpy \
-#    python3-requests_toolbelt \
-#    python3-earthengine-api \
-#    python3-pyasn1 \
-#    libcurl4-openssl-dev
 
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
-RUN sudo apt-get install -f git-lfs
-RUN git lfs install
+# Install git-lfs #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
+    apt-get install -f git-lfs && \
+    git lfs install
+
+# Install Miniconda
+ENV MINICONDA_VERSION=py39_24.1.2-0
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh && \
+    bash miniconda.sh -b -p /opt/conda && \
+    rm miniconda.sh
+
+ENV PATH=/opt/conda/bin:$PATH
+ENV CONDA_PATH=/opt/conda/bin/conda
+
+# Create a conda environment with Python 3.9 and compatible OpenSSL (default python was giving problems with openssl 3.3
+RUN conda create -y -n r-reticulate python=3.9 openssl=3.0 \
+    numpy pyopenssl
+
+# Activate conda env and set it as default for reticulate
+ENV RETICULATE_PYTHON=/opt/conda/envs/r-reticulate/bin/python
+ENV RETICULATE_ENV=/opt/conda/envs/r-reticulate
+
 
 RUN install2.r --error \
     testthat \
@@ -113,7 +102,6 @@ RUN install2.r --error \
     arrow \
     tidyverse \
     dygraphs \
-    geotargets \
     ggridges \
     GSODR \
     gt \
@@ -129,13 +117,13 @@ RUN install2.r --error \
     rmarkdown \
     sf \
     SPEI \
-    stantargets \
     stars \
     tarchetypes \
     targets \
     terra \
     tidyterra \
-    xts
+    xts \
+    reticulate
 
 
 ## install additional libraries from custom repos including cmdstanr - note the path below is important for loading library in container
@@ -149,24 +137,41 @@ RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
           devtools::install_github('JoshOBrien/gdalUtilities')"
 
 # Install rgee Python dependencies
-RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
-          reticulate::install_miniconda(path=Sys.getenv('RETICULATE_MINICONDA_PATH')); \
-          options(reticulate.conda_binary = paste0(Sys.getenv('RETICULATE_MINICONDA_PATH'),'/bin/conda')); \
-          reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
+RUN R -e "options(reticulate.conda_binary = Sys.getenv('CONDA_PATH')); \
+          reticulate::use_condaenv(Sys.getenv('RETICULATE_ENV')); \
           print(reticulate::py_config()); \
-          print(reticulate::py_discover_config()); \
-          reticulate::conda_install(c('fermipy','numpy','earthengine-api','openssl>=3.3.0'),envname='r-reticulate'); \
-          print(reticulate::py_discover_config()); \
-          reticulate::conda_list(); \
+          reticulate::conda_install(c('ncurses','pyCrypto','fermipy','numpy','earthengine-api','pyOpenSSL>=0.11'),envname='r-reticulate'); \
+          print(reticulate::py_config())"
+
+RUN R -e "remotes::install_github('r-spatial/rgee',upgrade='always'); \
           print(reticulate::py_config()); \
-          remotes::install_github('r-spatial/rgee'); \
+          rgee::ee_install_set_pyenv(py_path = Sys.getenv('RETICULATE_PYTHON'),py_env = 'r-reticulate'); \
           print(reticulate::py_config()); \
-          rgee::ee_install_set_pyenv(py_path = '/root/miniconda3/envs/r-reticulate/bin/python',py_env = 'r-reticulate'); \
-          print(reticulate::py_config()); \
-          HOME <- Sys.getenv('HOME'); \
+	  HOME <- Sys.getenv('HOME'); \
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
-          Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
-          rgee::ee_check()"
+          Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME))"
+
+
+# Install rgee Python dependencies
+#RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
+#          reticulate::install_miniconda(path=Sys.getenv('RETICULATE_MINICONDA_PATH')); \
+#          options(reticulate.conda_binary = paste0(Sys.getenv('RETICULATE_MINICONDA_PATH'),'/bin/conda')); \
+#	  reticulate::conda_create(envname = 'r-reticulate', python_version = '3.9'); \
+#          reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
+#          print(reticulate::py_config()); \
+#          print(reticulate::py_discover_config()); \
+#          reticulate::conda_install(c('pyCrypto','fermipy','numpy','earthengine-api','pyOpenSSL>=0.11'),envname='r-reticulate'); \
+#          print(reticulate::py_discover_config()); \
+#          reticulate::conda_list(); \
+#          print(reticulate::py_config()); \
+#          remotes::install_github('r-spatial/rgee',upgrade='always'); \
+#          print(reticulate::py_config()); \
+#          rgee::ee_install_set_pyenv(py_path = '/root/miniconda3/envs/r-reticulate/bin/python',py_env = 'r-reticulate'); \
+#          print(reticulate::py_config()); \
+#          HOME <- Sys.getenv('HOME'); \
+#          system('curl -sSL https://sdk.cloud.google.com | bash'); \
+#          Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
+#          rgee::ee_check()"
 
 #           reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
 #           reticulate::conda_install('numpy',envname='/root/miniconda3/envs/r-reticulate'); \
