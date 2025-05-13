@@ -31,6 +31,9 @@ RUN apt-get update \
     sqlite3 \
     tk-dev 
 
+## Install Quarto library
+RUN wget https://quarto.org/download/latest/quarto-linux-amd64.deb && \
+    sudo dpkg -i quarto-linux-amd64.deb
 
 # Install git-lfs #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
