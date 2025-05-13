@@ -126,7 +126,8 @@ RUN install2.r --error \
     terra \
     tidyterra \
     xts \
-    reticulate
+    reticulate \
+    cowplot
 
 
 ## install additional libraries from custom repos including cmdstanr - note the path below is important for loading library in container
