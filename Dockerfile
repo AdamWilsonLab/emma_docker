@@ -123,11 +123,15 @@ RUN install2.r --error \
     stars \
     tarchetypes \
     targets \
-    terra \
+    geotargets \
+	terra \
     tidyterra \
     xts \
     reticulate \
-    cowplot
+    cowplot \
+	appeears \
+	rdryad
+	
 
 
 ## install additional libraries from custom repos including cmdstanr - note the path below is important for loading library in container
