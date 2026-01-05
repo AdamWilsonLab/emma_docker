@@ -101,7 +101,8 @@ salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJ
 Then run the following to start using R from the container:
 
 ```
-export PROJECT_FOLDER="/projects/academic/"$GROUP/
+export GROUP="adamw"
+export PROJECT_FOLDER="/projects/academic/"$GROUP
 export APPTAINER_CACHEDIR="/vscratch/grp-adamw/"$USER"/singularity"
 export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/singularity"
 export SIF_FILE="AdamWilsonLab-emma_docker-latest.sif"
@@ -113,7 +114,7 @@ export SINGULARITY_TMPDIR=$APPTAINER_TMPDIR
 export SINGULARITY_LOCALCACHEDIR=$APPTAINER_LOCALCACHEDIR
 
 
-singularity run \
+apptainer run \
       --bind $PROJECT_FOLDER:$PROJECT_FOLDER \
       --bind $APPTAINER_CACHEDIR/tmp:/tmp \
       --bind $APPTAINER_CACHEDIR/run:/run \
