@@ -48,7 +48,7 @@ Then set the following environment variables, create a few directories, and buil
 export GROUP="adamw"
 
 # mount project folder inside container:
-export PROJECT_FOLDER="/projects/"$GROUP
+export PROJECT_FOLDER="/projects/academic/"$GROUP/
 
 # define local working folder to build the SIF file (this is faster than network storage)
 export APPTAINER_CACHEDIR="/vscratch/grp-adamw/"$USER"/singularity"
@@ -101,7 +101,7 @@ salloc --cluster=faculty --qos=adamw --partition=adamw  --job-name "InteractiveJ
 Then run the following to start using R from the container:
 
 ```
-export PROJECT_FOLDER="/projects/"$GROUP
+export PROJECT_FOLDER="/projects/academic/"$GROUP/
 export APPTAINER_CACHEDIR="/vscratch/grp-adamw/"$USER"/singularity"
 export SIF_PATH=$PROJECT_FOLDER"/users/"$USER"/singularity"
 export SIF_FILE="AdamWilsonLab-emma_docker-latest.sif"
