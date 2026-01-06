@@ -128,11 +128,11 @@ apptainer run \
    - Quarto (optional)
 3) Mount CCR via SSHFS or Mountain Duck
 4) VSCode
-  1) Confirm R extension settings:
-      2) r.alwaysUseActiveTerminal True: Forces code to be sent to whatever terminal is active, no questions asked.
-  2) Open project directory on CCR (vortex) through the mounted path
-  3) Open a Local Integrated Terminal (Terminal → New Terminal)
-  4) In VS Code Terminal: 
+   - Confirm R extension settings:
+      - r.alwaysUseActiveTerminal True: Forces code to be sent to whatever terminal is active, no questions asked.
+    -  Open project directory on CCR (vortex) through the mounted path
+    -  Open a Local Integrated Terminal (Terminal → New Terminal)
+    -  In VS Code Terminal: 
 
 ```
 ssh vortex.ccr.buffalo.edu
