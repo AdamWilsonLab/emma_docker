@@ -122,12 +122,12 @@ apptainer run \
 ```
 ## Local VSCode Method
 
-1) Install Extensions: 
-  1) R
-  2) R Syntax
-  3) Quarto (optional)
-2) Mount CCR via SSHFS or Mountain Duck
-3) VSCode
+1) Install Extensions:
+   - R
+   - R Syntax
+   - Quarto (optional)
+3) Mount CCR via SSHFS or Mountain Duck
+4) VSCode
   1) Confirm R extension settings:
       2) r.alwaysUseActiveTerminal True: Forces code to be sent to whatever terminal is active, no questions asked.
   2) Open project directory on CCR (vortex) through the mounted path
