@@ -120,6 +120,27 @@ apptainer run \
       --bind $APPTAINER_CACHEDIR/run:/run \
       $SIF_PATH/$SIF_FILE R
 ```
+## Local VSCode Method
+
+1) Install Extensions: 
+  1) R
+  2) R Syntax
+  3) Quarto (optional)
+2) Mount CCR via SSHFS or Mountain Duck
+3) VSCode
+  1) Confirm R extension settings:
+      2) r.alwaysUseActiveTerminal True: Forces code to be sent to whatever terminal is active, no questions asked.
+  2) Open project directory on CCR (vortex) through the mounted path
+  3) Open a Local Integrated Terminal (Terminal → New Terminal)
+  4) In VS Code Terminal: 
+
+```
+ssh vortex.ccr.buffalo.edu
+salloc --cluster=faculty --qos=adamw --partition=adamw \
+       --job-name=InteractiveJob --nodes=1 --ntasks=4 \
+       --mem=10G -C INTEL --time=03:00:00
+```
+Then open the container using the code above.  
 
 ## Use CCR OnDemand
 You can also use CCR OnDemand
