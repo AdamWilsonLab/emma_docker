@@ -130,9 +130,14 @@ RUN install2.r --error \
     reticulate \
     cowplot \
 	appeears \
-	rdryad
-	
-
+	rdryad \
+	keyring \
+	filelock \
+	ncdf4 \
+	stars \
+	colourvalues \
+	kableExtra \
+	viridis 
 
 ## install additional libraries from custom repos including cmdstanr - note the path below is important for loading library in container
 RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
@@ -158,35 +163,8 @@ RUN R -e "remotes::install_github('r-spatial/rgee',upgrade='always'); \
 	  HOME <- Sys.getenv('HOME'); \
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME))"
-
-
-# Install rgee Python dependencies
-#RUN R -e "Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3'); \
-#          reticulate::install_miniconda(path=Sys.getenv('RETICULATE_MINICONDA_PATH')); \
-#          options(reticulate.conda_binary = paste0(Sys.getenv('RETICULATE_MINICONDA_PATH'),'/bin/conda')); \
-#	  reticulate::conda_create(envname = 'r-reticulate', python_version = '3.9'); \
-#          reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
-#          print(reticulate::py_config()); \
-#          print(reticulate::py_discover_config()); \
-#          reticulate::conda_install(c('pyCrypto','fermipy','numpy','earthengine-api','pyOpenSSL>=0.11'),envname='r-reticulate'); \
-#          print(reticulate::py_discover_config()); \
-#          reticulate::conda_list(); \
-#          print(reticulate::py_config()); \
-#          remotes::install_github('r-spatial/rgee',upgrade='always'); \
-#          print(reticulate::py_config()); \
-#          rgee::ee_install_set_pyenv(py_path = '/root/miniconda3/envs/r-reticulate/bin/python',py_env = 'r-reticulate'); \
-#          print(reticulate::py_config()); \
-#          HOME <- Sys.getenv('HOME'); \
-#          system('curl -sSL https://sdk.cloud.google.com | bash'); \
-#          Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME)); \
-#          rgee::ee_check()"
-
-#           reticulate::use_condaenv('/root/miniconda3/envs/r-reticulate'); \
-#           reticulate::conda_install('numpy',envname='/root/miniconda3/envs/r-reticulate'); \
-#          reticulate::conda_install('earthengine-api', envname='/root/miniconda3/envs/r-reticulate'); \
-# rgee::ee_install(py_env = 'rgee', confirm = FALSE); \
-# Sys.setenv('RETICULATE_PYTHON' = '/root/miniconda3/bin/python'); \
-#          Sys.setenv('RETICULATE_MINICONDA_PATH' = '/root/miniconda3/bin/python'); \
-#          Sys.setenv('RETICULATE_PYTHON' = '/root/miniconda3/bin/python'); \
-#         rgee::ee_install_set_pyenv(py_path = '/root/miniconda3/bin/python'); \
-#rgee::ee_clean_pyenv(); \
+RUN apt-get update && apt-get install -y \
+    [packages] \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+  
