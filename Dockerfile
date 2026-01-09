@@ -29,7 +29,9 @@ RUN apt-get update \
     postgis \
     protobuf-compiler \
     sqlite3 \
-    tk-dev 
+    tk-dev \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 ## Install Quarto library
 RUN wget https://quarto.org/download/latest/quarto-linux-amd64.deb && \
@@ -163,8 +165,4 @@ RUN R -e "remotes::install_github('r-spatial/rgee',upgrade='always'); \
 	  HOME <- Sys.getenv('HOME'); \
           system('curl -sSL https://sdk.cloud.google.com | bash'); \
           Sys.setenv('EARTHENGINE_GCLOUD' = sprintf('%s/google-cloud-sdk/bin/', HOME))"
-RUN apt-get update && apt-get install -y \
-    [packages] \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
   
