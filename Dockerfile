@@ -31,7 +31,9 @@ RUN apt-get update \
     sqlite3 \
     tk-dev \
 	libsecret-1-0 \
-	libsecret-1-dev
+	libsecret-1-dev \
+	gh
+	
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
