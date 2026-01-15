@@ -32,8 +32,7 @@ RUN apt-get update \
     tk-dev \
 	libsecret-1-0 \
 	libsecret-1-dev \
-	gh
-	
+	gh \	
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
