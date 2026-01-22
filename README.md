@@ -127,7 +127,8 @@ apptainer run \
    - R Syntax
    - Quarto (optional)
 3) Mount CCR via SSHFS or Mountain Duck
-4) VSCode
+4) Use this folder for project data storage: `/projects/academic/adamw/users/$USER`
+5) VSCode
    - Confirm R extension settings:
       - r.alwaysUseActiveTerminal True: Forces code to be sent to whatever terminal is active, no questions asked.
     -  Open project directory on CCR (vortex) through the mounted path
