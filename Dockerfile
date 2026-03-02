@@ -41,9 +41,11 @@ RUN wget https://quarto.org/download/latest/quarto-linux-amd64.deb && \
     sudo dpkg -i quarto-linux-amd64.deb
 
 # Install git-lfs #from https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
-    apt-get install -f git-lfs && \
-    git lfs install
+RUN apt-get update &&
+apt-get install -y gnupg &&
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash &&
+apt-get install -f git-lfs &&
+git lfs install
 
 # Install Miniconda
 ENV MINICONDA_VERSION=py39_24.1.2-0
