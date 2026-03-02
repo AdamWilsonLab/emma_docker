@@ -147,8 +147,6 @@ RUN install2.r --error \
 	viridis \
 	qs \
 	future \
-	qs \
-	kableextra \
 	viridis \
 	colourvalues
 	
