@@ -144,8 +144,12 @@ RUN install2.r --error \
 	kableExtra \
 	viridis \
 	qs \
-	future     
-
+	future \
+	qs \
+	kableextra \
+	viridis \
+	colourvalues
+	
 ## install additional libraries from custom repos including cmdstanr - note the path below is important for loading library in container
 RUN R -e "remotes::install_github('futureverse/parallelly', ref='master'); \
           install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', getOption('repos'))) ; \
