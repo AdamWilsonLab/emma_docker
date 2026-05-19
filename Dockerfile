@@ -13,6 +13,7 @@ RUN apt-get update \
     libgdal-dev \
     libgeos-dev \
     libgsl0-dev \
+    libglpk-dev \
     libgl1-mesa-dev \
     libglu1-mesa-dev \
     libhdf4-alt-dev \
