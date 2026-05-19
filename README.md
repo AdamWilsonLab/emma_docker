@@ -51,7 +51,7 @@ export GROUP="adamw"
 export PROJECT_FOLDER="/projects/academic/"$GROUP/
 
 # define local working folder to build the SIF file (this is faster than network storage)
-export APPTAINER_CACHEDIR="/vscratch/grp-adamw/"$USER"/singularity"
+export APPTAINER_CACHEDIR="/vscratch/grp-adamw/"$USER"/apptainer"
 export APPTAINER_TMPDIR=$APPTAINER_CACHEDIR"/tmp"
 export APPTAINER_LOCALCACHEDIR=$APPTAINER_CACHEDIR"/tmp"
 
